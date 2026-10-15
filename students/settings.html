@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamPrep NG Settings</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./script.js" defer></script>
+  <script src="./settings.js" defer></script>
+</head>
+
+<body class="bg-[#F8F8F8] font-['Inter']">
+
+  <div class="min-h-screen flex">
+    <aside id="sidebar"
+      class="fixed top-0 left-0 z-50 md:h-screen md:w-[86px] bg-[#003028] text-white w-full -translate-x-full lg:translate-x-0 lg:sticky lg:w-[250px] transition-transform duration-300 flex flex-col px-4 lg:px-5 py-6">
+
+      <div class="flex items-center justify-between gap-2 mb-2 lg:mb-9 px-1 md:flex-col">
+        <div class="flex items-center gap-2 md:order-2">
+          <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-7 h-7 shrink-0">
+          <span class="text-[24px] font-bold whitespace-nowrap md:hidden lg:block">ExamPrep NG</span>
+        </div>
+
+        <button id="close-btn" type="button" class="md:order-1 lg:hidden" aria-label="Close menu">
+          <ion-icon name="close-outline" class="w-10 h-10 flex" id="close-icon"></ion-icon>
+        </button>
+      </div>
+
+      <nav class="space-y-2">
+        <a href="./dashboard.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg font-bold text-[16px]">
+          <ion-icon name="home" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Dashboard</p>
+        </a>
+
+        <a href="./practice.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+          <ion-icon name="book" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Practice</p>
+        </a>
+
+        <a href="./performance.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+          <ion-icon name="bar-chart" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Performance</p>
+        </a>
+
+        <a href="./progress.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+          <ion-icon name="analytics" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Progress</p>
+        </a>
+
+        <a href="./bookmark.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+          <ion-icon name="bookmark" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Bookmarks</p>
+        </a>
+
+        <a href="./settings.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+          <ion-icon name="settings" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Settings</p>
+        </a>
+      </nav>
+
+      <div class="my-auto pb-3">
+        <div class="hidden w-8 h-[3px] bg-yellow-400 mb-4 md:mx-auto lg:mx-0 md:block"></div>
+        <p class="text-[16px] leading-5 font-semibold hidden lg:block">
+          Small steps<br>today, big results<br>tomorrow.
+        </p>
+      </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 bg-[#F8F8F8]">
+      <header class="px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between gap-4">
+
+          <button id="menuBtn" type="button"
+            class="lg:hidden border border-gray-200 rounded-lg flex items-center justify-center relative"
+            aria-label="Open menu">
+            <ion-icon name="menu-outline" class="text-[24px] text-[#083830] pl-3 absolute md:pl-0"
+              id="menu-icon"></ion-icon>
+          </button>
+
+          <div
+            class="search hidden sm:flex flex-1 max-w-[500px] p-4 border border-gray-200 rounded-xl items-center px-4 gap-3">
+            <ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
+            <input type="text" placeholder="Search topics, questions, or anything..."
+              class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-[#78909C] placeholder:font-bold">
+          </div>
+
+          <div class="search sm:hidden p-4 border border-gray-200 rounded-xl flex items-center px-4 gap-3">
+            <ion-icon name="search-outline" class="w-4 h-4"></ion-icon>
+            <input type="text" placeholder="Search topics or questions..."
+              class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-[#78909C] placeholder:font-bold">
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+            <button id="notification-button" type="button" class="relative" aria-label="Notifications">
+              <ion-icon name="notifications-outline" class="w-6 h-6"></ion-icon>
+              <span id="notification-dot"
+                class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white hidden"></span>
+            </button>
+
+            <div id="profile-initials"
+              class="hidden w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold md:flex">
+
+            </div>
+
+            <div id="profile-name" class="hidden sm:block leading-tight">
+              <p class="text-[12px] font-bold"></p>
+              <p id="profile-role" class="text-[10px] text-[#78909C] font-medium"></p>
+            </div>
+
+            <a href="./settings.html" aria-label="Profile settings">
+              <ion-icon id="profile-dropdown" name="chevron-down-outline"
+                class="hidden md:block w-4 h-4 text-[#78909C]"></ion-icon>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <section class="px-4 sm:px-6 lg:px-8 pt-7 pb-3">
+        <div>
+          <h1 class="text-[32px] font-bold text-[#085848]">Settings</h1>
+          <p class="mt-1 text-[16px] text-[#78909C]">Manage your account preferences and settings.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-5 items-start">
+
+          <aside class="border border-[#D9D9D9] rounded-[14px] p-4">
+            <button type="button"
+              class="setting-tab w-full p-3 rounded-lg flex items-start gap-3 text-left bg-[#F8F8F8]"
+              data-tab="account">
+              <img src="/Images/account.png" alt="" />
+              <div>
+                <h3 class="text-[16px] font-bold text-black">Account</h3>
+                <p class="mt-1 text-[14px] text-[#78909C] font-medium">Manage your account</p>
+              </div>
+            </button>
+
+            <button type="button"
+              class="setting-tab w-full p-3 rounded-lg flex items-start gap-3 text-left bg-[#F8F8F8]"
+              data-tab="notification">
+              <img src="/Images/notification.png" alt="" />
+              <div>
+                <h3 class="text-[16px] font-bold text-black">Notification</h3>
+                <p class="mt-1 text-[14px] text-[#78909C] font-medium">Manage alerts and updates</p>
+              </div>
+            </button>
+
+            <button type="button"
+              class="setting-tab w-full p-3 rounded-lg flex items-start gap-3 text-left bg-[#F8F8F8]"
+              data-tab="privacy">
+              <img src="/Images/privacy.png" alt="" />
+              <div>
+                <h3 class="text-[16px] font-bold text-black">Privacy &amp; Security</h3>
+                <p class="mt-1 text-[14px] text-[#78909C] font-medium">Control your privacy</p>
+              </div>
+            </button>
+          </aside>
+
+          <div>
+            <section id="privacy-panel" class="hidden bg-white border border-[#D9D9D9] rounded-[14px] p-6">
+              <div class="w-12 h-12 rounded-full bg-[#CEF4DA] text-[#085848] flex items-center justify-center mb-4">
+                <ion-icon name="shield-checkmark-outline" class="text-2xl"></ion-icon>
+              </div>
+
+              <h2 class="text-xl font-bold text-[#003028]">Privacy &amp; Security</h2>
+              <p class="mt-2 text-sm text-gray-500">
+                Your account security and privacy controls will be available here soon.
+                We’re working on making these features available to you.
+              </p>
+
+              <button id="back-to-account" type="button"
+                class="mt-5 px-5 py-3 rounded-lg bg-[#085848] text-white font-semibold">
+                Back to Account
+              </button>
+            </section>
+
+            <section id="account" class="bg-white border border-[#D9D9D9] rounded-[14px] p-5 sm:p-6">
+              <h2 class="text-[20px] font-bold text-black">Profile Information</h2>
+
+              <div class="mt-7 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                <div class="flex items-center gap-5">
+
+                  <div id="profile-avatar" tabindex="0" role="button" tabindex="0" aria-label="Manage profile photo"
+                    class="relative w-20 h-20 rounded-full bg-[#085848] text-white flex items-center justify-center shrink-0 overflow-hidden cursor-pointer">
+                    <span id="profile-initial" class="text-[28px] font-semibold"></span>
+
+                    <button id="upload-photo" type="button" aria-label="Manage profile photo"
+                      class="absolute bottom-0 right-0 z-10 w-7 h-7 rounded-full bg-white border border-[#D9D9D9] flex items-center justify-center">
+                      <ion-icon name="camera-outline" class="text-black"></ion-icon>
+                    </button>
+
+                    <input id="profile-photo-input" type="file" accept="image/*" class="hidden">
+                  </div>
+
+                  <div id="profile-details">
+                    <h3 class="text-[24px] font-semibold text-black"></h3>
+                    <p class="mt-1 text-[20px] font-semibold text-[#085848]">Student</p>
+                    <p id="profile-email-display" class="mt-3 text-[14px] text-black"></p>
+                    <p id="profile-joined-date" class="mt-1 text-[14px] text-black"></p>
+                  </div>
+                </div>
+
+                <button id="edit-profile" type="button"
+                  class="p-3 border border-[#085848] rounded-[7px] bg-white text-[#085848] text-[16px] font-semibold">
+                  Edit Profile
+                </button>
+              </div>
+            </section>
+
+            <section class="mt-5 bg-white border border-[#D9D9D9] rounded-[14px] p-5 sm:p-6">
+              <h2 class="text-[22px] font-bold text-black">Personal information</h2>
+              <p class="mt-2 text-[13px]">Update your personal information and how others see you.</p>
+
+              <form id="settings-form" class="mt-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                  <div>
+                    <label for="full-name" class="block mb-2 text-[17px] font-medium text-black">Full name</label>
+                    <input id="full-name" type="text" value="Tobi Udoh" disabled
+                      class="profile-input w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[15px] disabled:text-[#000000]/50 disabled:bg-white">
+                  </div>
+
+                  <div>
+                    <label for="email" class="block mb-2 text-[17px] font-medium text-black">Email address</label>
+                    <input id="email" type="email" value="tobiudoh@gmail.com" disabled
+                      class="profile-input w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[15px] disabled:text-[#000000]/50 disabled:bg-white">
+                  </div>
+
+
+                  <div>
+                    <label for="timezone" class="block mb-2 text-[17px] font-medium text-black">
+                      Timezone
+                    </label>
+                    <select id="timezone" name="timezone" disabled
+                      class="w-full rounded-lg border border-[#D9D9D9] bg-white px-4 py-3 text-[#000000]/50 focus:outline-none">
+                      <option value="Greenwich Mean Time-London">Greenwich Mean Time - London</option>
+                      <option value="West Africa Standard Time">West Africa Standard Time</option>
+                      <option value="Eastern Standard Time">Eastern Standard Time</option>
+                      <option value="Central European Time">Central European Time</option>
+                      <option value="India Standard Time">India Standard Time</option>
+                      <option value="Japan Standard Time">Japan Standard Time</option>
+                      <option value="Australian Eastern Standard Time">Australian Eastern Standard Time</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label for="location" class="block mb-2 text-[17px] font-medium text-black">
+                      Location
+                    </label>
+                    <select id="location" name="location" disabled
+                      class="w-full rounded-lg border border-[#D9D9D9] bg-white px-4 py-3 text-[#000000]/50 focus:outline-none">
+                      <option value="Abuja">Abuja</option>
+                      <option value="Lagos">Lagos</option>
+                      <option value="Ilorin">Ilorin</option>
+                      <option value="Kano">Kano</option>
+                      <option value="Ibadan">Ibadan</option>
+                      <option value="Port Harcourt">Port Harcourt</option>
+                      <option value="Enugu">Enugu</option>
+                      <option value="Jos">Jos</option>
+                      <option value="Benin City">Benin City</option>
+                      <option value="Kaduna">Kaduna</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="mt-5 p-3 rounded-[6px] bg-[#085848] text-white text-[17px] font-bold">
+                    Save changes
+                  </button>
+              </form>
+            </section>
+
+            <button id="logout-button" type="button"
+              class="mt-7 p-4 w-full bg-[#056959] text-white rounded-[7px] text-[17px] font-bold">
+              Log Out
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="photo-options-modal" class="hidden fixed inset-0 z-[110] bg-black/50 items-center justify-center p-4"
+    aria-hidden="true">
+    <div role="dialog" aria-modal="true" aria-labelledby="photo-modal-title"
+      class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+      <div class="mb-2 flex items-center justify-between">
+        <h2 id="photo-modal-title" class="text-lg font-bold text-[#003028]">
+          Profile photo
+        </h2>
+
+        <button id="cancel-photo-options" type="button" aria-label="Close photo options"
+          class="rounded-lg p-2 text-gray-500">
+          <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+        </button>
+      </div>
+
+      <p class="mb-5 text-sm text-gray-500">
+        Choose what you would like to do with your profile picture.
+      </p>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button id="change-photo-option" type="button"
+          class="flex min-h-[100px] flex-col items-center justify-center gap-2 rounded-xl border border-[#085848] p-4 text-center">
+          <ion-icon name="image-outline" class="text-3xl text-[#085848]"></ion-icon>
+
+          <span class="text-[14px] font-semibold text-[#085848]">
+            Change photo
+          </span>
+        </button>
+
+        <button id="remove-photo-option" type="button"
+          class="flex min-h-[100px] flex-col items-center justify-center gap-2 rounded-xl border border-red-200 p-4 text-center">
+          <ion-icon name="trash-outline" class="text-3xl text-red-600"></ion-icon>
+
+          <span class="text-[14px] font-semibold text-red-600">
+            Remove photo
+          </span>
+        </button>
+      </div>
+
+      <button id="cancel-photo-button" type="button"
+        class="mt-5 w-full rounded-xl border border-gray-200 px-4 py-3 font-semibold text-gray-700 ">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div id="logout-modal" class="hidden fixed inset-0 z-[100] bg-black/50 items-center justify-center p-4">
+    <div role="dialog" aria-modal="true" aria-labelledby="logout-title"
+      class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#CEF4DA] text-[#085848]">
+        <ion-icon name="log-out-outline" class="text-3xl"></ion-icon>
+      </div>
+
+      <h2 id="logout-title" class="mt-4 text-center text-xl font-bold text-[#003028]">Log out of your account?</h2>
+
+      <p class="mt-2 text-center text-sm text-gray-500">
+        Are you sure you want to log out of ExamPrep NG?
+        You will need to sign in again to access your dashboard.
+      </p>
+
+      <div class="mt-6 flex gap-3">
+        <button id="cancel-logout" type="button"
+          class="flex-1 rounded-lg border border-gray-300 px-4 py-3 font-semibold text-gray-700">
+          Cancel
+        </button>
+
+        <button id="confirm-logout" type="button"
+          class="flex-1 rounded-lg bg-[#085848] px-4 py-3 font-semibold text-white">
+          Log Out
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings-toast"
+    class="hidden fixed bottom-5 right-5 z-[200] max-w-sm rounded-xl border bg-white p-4 shadow-lg" role="status"
+    aria-live="polite">
+    <div class="flex items-start gap-3">
+      <ion-icon id="toast-icon" name="checkmark-circle" class="mt-0.5 text-2xl text-green-600"></ion-icon>
+      <div>
+        <p id="toast-title" class="font-bold text-[#003028]">Success</p>
+        <p id="toast-message" class="mt-1 text-sm text-gray-600"></p>
+      </div>
+      <button id="close-settings-toast" type="button" aria-label="Close notification" class="ml-2 text-gray-500">
+        <ion-icon name="close-outline" class="text-xl"></ion-icon>
+      </button>
+    </div>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

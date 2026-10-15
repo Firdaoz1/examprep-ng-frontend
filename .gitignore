@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+Thumbs.db
+Images/AKOGUN FIRDAOZ MAYOWA CV.docx
+Images/Frontend first presentation#.pptx
+Images/Frontend first presentation#-1.pptx

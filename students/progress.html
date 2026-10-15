@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamPrep NG Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./script.js" defer></script>
+  <script src="./progress.js" defer></script>
+</head>
+
+<body class="bg-[#F8F8F8] font-['Inter']">
+
+  <div class="min-h-screen flex">
+    <aside id="sidebar"
+      class="fixed top-0 left-0 z-50 md:h-screen md:w-[86px] bg-[#003028] text-white w-full -translate-x-full lg:translate-x-0  lg:sticky lg:w-[250px] transition-transform duration-300 flex flex-col px-4 lg:px-5 py-6">
+
+      <div class="flex items-center justify-between gap-2 mb-2 lg:mb-9 px-1 md:flex-col">
+        <div class="flex items-center gap-2 md:order-2">
+          <img src="/Images/logo.png" alt="logo-image" class="w-7 h-7 shrink-0">
+          <span class="text-[24px] font-extraBold font-bold whitespace-nowrap md:hidden lg:block">
+            ExamPrep NG</span>
+        </div>
+
+        <button id="close-btn" class="md:order-1 lg:hidden">
+          <ion-icon name="close-outline" class="w-10 h-10 flex" id="close-icon"></ion-icon>
+        </button>
+      </div>
+      <nav class="space-y-2">
+
+        <a href="./dashboard.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg font-bold text-[16px]">
+
+          <ion-icon name="home" class="w-5 h-5 shrink-0"></ion-icon></ion-icon>
+          <p class="md:hidden lg:block"> Dashboard</p>
+        </a>
+
+        <a href="./practice.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="book" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Practice</p>
+        </a>
+
+        <a href="./performance.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="bar-chart" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Performance</p>
+        </a>
+
+        <a href="./progress.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="analytics" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block"> Progress</p>
+        </a>
+
+        <a href="./bookmark.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="bookmark" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Bookmarks</p>
+        </a>
+
+        <a href="./settings.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="settings" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Settings</p>
+        </a>
+      </nav>
+
+      <div class="my-auto pb-3">
+        <div class="hidden w-8 h-[3px] bg-yellow-400 mb-4 md:mx-auto lg:mx-0 md:block"></div>
+        <p class="text-[16px] leading-5 font-semibold hidden lg:block">
+          Small steps<br>today, big results<br> tomorrow.</p>
+      </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 bg-[#F8F8F8]">
+      <header class="px-4 sm:px-6 lg:px-8 py-4">
+
+        <div class="flex items-center justify-between gap-4">
+
+          <!-- Mobile/Tablet Menu -->
+          <button id="menuBtn"
+            class="lg:hidden border border-border rounded-lg flex items-center justify-center relative">
+
+            <ion-icon name="menu-outline" class="text-[24px] text-[#083830] pl-3 absolute md:pl-0"
+              id="menu-icon"></ion-icon>
+          </button>
+
+          <!-- Search Desktop / Tablet -->
+          <div
+            class="search hidden sm:flex flex-1 max-w-[500px] p-4 border border-border rounded-xl items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
+
+            <input type="text" placeholder="Search topics, questions, or anything..."
+              class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <!-- Mobile Search -->
+          <div class="search sm:hidden p-4 border border-border rounded-xl flex items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-4 h-4"></ion-icon>
+
+            <input type="text" placeholder="Search topics or questions..."
+              class=" flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button id="notification-button" class="relative">
+              <ion-icon name="notifications-outline" class="w-6 h-6"></ion-icon>
+              <span id="notification-dot"
+                class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white hidden"></span>
+            </button>
+
+            <div id="profile-initials"
+              class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
+
+            </div>
+
+            <div id="profile-name" class="hidden sm:block leading-tight">
+              <p class="text-[12px] font-bold">
+
+              </p>
+              <p id="profile-role" class="text-[10px] text-[#78909C] font-medium">
+                JAMB candidate
+              </p>
+            </div>
+
+            <a href="./settings.html"><ion-icon id="profile-dropdown" name="chevron-down-outline"
+                class="hidden md:block w-4 h-4 text-[#78909C]"></ion-icon></a>
+          </div>
+        </div>
+
+      </header>
+
+      <div class="p-4 sm:p-6 lg:p-8">
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 class="text-[30px] md:text-[32px] font-bold text-[#085848] leading-tight">Progress</h1>
+            <p class="mt-1 text-[12px] md:text-[16px] font-bold text-[#085848]">Track your improvement and see how far
+              you have come.</p>
+          </div>
+
+          <div
+            class="flex items-center justify-center gap-3 text-[12px] font-semibold p-3 border border-[#D9D9D9] rounded-xl bg-[#FFFFFF] text-[#003028] w-[200px] ml-auto">
+            <img src="/Images/30.png" alt="calender" class="w-5 h-5">
+            <select id="performance-period" class="outline-none">
+              <option value="30">Last 30 days</option>
+              <option value="7">Last 7 days</option>
+              <option value="14">Last 14 days</option>
+            </select>
+          </div>
+        </div>
+
+        <section class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          <div class="rounded-2xl bg-[#083830] p-5 text-white">
+
+            <img src="/Images/p72.png" alt="Accuracy" class="w-11 h-11">
+            <p class="mt-3 text-[16px] text-white/50 font-bold">Overall Accuracy</p>
+            <h2 id="overall-accuracy" class="mt-1 text-[24px] font-bold"></h2>
+            <div class="flex items-center mt-3 text-[12px] text-[#34c759] gap-[1px]">
+
+              <p class="performance-change"></p>
+            </div>
+            <p class="comparison-label mt-3 text-[12px] text-white/50 font-bold"></p>
+          </div>
+
+          <div class="rounded-2xl border border-[#D9D9D9] bg-white p-5">
+
+            <img src="/Images/p240.png" alt="Questions" class="w-11 h-11">
+
+            <h2 id="questions-completed" class="mt-3 text-[24px] font-bold"></h2>
+            <p class="text-[12px] text-black/50 text-medium">Questions completed</p>
+            <div class="flex items-center mt-3 text-[12px] text-[#34c759] gap-[1px]">
+
+              <p class="questions-completed-change"></p>
+            </div>
+            <p class="comparison-label mt-3 text-[12px] text-black/50 font-medium"></p>
+          </div>
+
+          <div class="rounded-2xl border border-[#D9D9D9] bg-white p-5">
+
+            <img src="/Images/p18.png" alt="Practice Sessions" class="w-11 h-11">
+
+            <h2 class="mt-3 text-[24px] font-bold">Study streak</h2>
+            <p id="streak-days" class="text-[12px] text-black/50 text-medium"></p>
+            <div class="flex items-center mt-3 text-[12px] text-[#34c759] gap-[1px]">
+
+              <p class="practice-section-change"></p>
+            </div>
+            <p class="comparison-label mt-3 text-[12px] text-black/50 text-medium"></p>
+          </div>
+
+          <div class="rounded-2xl border border-[#D9D9D9] bg-[#FFFFFF] p-5">
+
+            <img src="/Images/p6.png" alt="Time" class="w-11 h-11">
+
+            <h2 id="time-spent" class="mt-3 text-[24px] font-bold"></h2>
+            <p class="text-[12px] text-black/50 font-medium">Time spent practicing</p>
+            <div class="flex items-center mt-3 text-[12px] text-[#34c759] gap-[1px]">
+              <p class="time-spent-change"></p>
+            </div>
+            <p class="comparison-label mt-3 text-[12px] text-black/50 font-medium"></p>
+          </div>
+        </section>
+
+        <section class="mt-6 border border-[#D9D9D9] rounded-2xl bg-[#FFFFFF] p-5 sm:p-6">
+
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+
+            <div class="font-bold">
+              <h2 class="text-[24px] text-[#085848]">Your Progress Over Time</h2>
+              <p class="mt-1 text-[16px] text-black/50">Overall accuracy from your practice sessions</p>
+            </div>
+
+            <div
+              class="flex items-center justify-center gap-3 text-[12px] font-semibold p-3 border border-[#D9D9D9] rounded-xl bg-[#FFFFFF] text-[#003028] w-[200px] ml-auto">
+              <img src="/Images/30.png" alt="calender" class="w-5 h-5">
+              <select name="" id="progress-period-graph" class="outline-none ">
+                <option value="30">Last 30 days</option>
+                <option value="7">Last 7 days</option>
+                <option value="14">Last 14 days</option>
+              </select>
+            </div>
+
+          </div>
+
+
+
+          <div class="mt-7">
+            <div>
+              <div class="flex">
+
+
+                <div class="w-[52px] flex flex-col justify-between text-[10px] text-[#596764] pr-3">
+
+                </div>
+
+                <div class="flex-1">
+
+                  <div class="relative h-[300px]">
+                    <canvas id="progress-chart"></canvas>
+                  </div>
+
+                  <div id="progress-date" class="grid grid-cols-7 gap-2 mt-3 text-center text-[10px] text-black/50">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-6 border border-[#D8E0DE] rounded-2xl bg-[#FFFFFF] overflow-hidden">
+
+          <div class="px-5 sm:px-7 py-5 flex items-start justify-between gap-4">
+
+            <div>
+              <h2 class="text-[20px] font-bold text-[#085848]">Recent Activity</h2>
+              <p class="mt-1 text-[16px] text-[#78909C] font-bold">Your latest practice sessions</p>
+            </div>
+
+            <a href="./activity.html" class="text-[16px] font-bold whitespace-nowrap text-[#003028]">View all <ion-icon
+                name="arrow-forward-outline"></ion-icon></a>
+
+          </div>
+
+
+          <div class="overflow-x-auto md:overflow-hidden">
+            <table class="w-full border-collapse">
+
+              <thead>
+                <tr class="border-t border-b border-[#D9D9D9] text-left text-[12px] font-medium text-black/50">
+                  <th class="px-6 py-4">Subject</th>
+                  <th class="px-5 py-4">Topics</th>
+                  <th class="px-5 py-4">Questions</th>
+                  <th class="px-5 py-4">Score</th>
+                  <th class="px-5 py-4">Date</th>
+                  <th class="px-5 py-4">Mode</th>
+                </tr>
+              </thead>
+
+              <tbody id="Recent-activity-list" class="text-[12px] text-black/50 font-bold">
+
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

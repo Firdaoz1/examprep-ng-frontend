@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamPrep NG - Admin Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#F8F8F8] text-['Inter']">
+
+<div class="min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
+        <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
+      </div>
+
+      <button id="sidebar-close" type="button" class="lg:hidden text-[28px]">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+
+    <nav class="mt-10 space-y-3">
+
+      <a href="./dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
+        <ion-icon name="home" class="text-[22px]"></ion-icon>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+        <ion-icon name="albums" class="text-[22px]"></ion-icon>
+        <span>Questions Bank</span>
+      </a>
+
+      <a href="./add-question.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+        <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
+        <span>Add Question</span>
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="w-full min-h-screen lg:ml-[250px]">
+
+    <!-- HEADER -->
+    <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+
+      <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+
+      <div class="hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
+        <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
+        <input type="text" placeholder="What do you want to find?" class="flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold">
+      </div>
+
+      <div class="ml-auto flex items-center gap-3">
+
+        <button type="button" class="relative w-8 h-8 flex items-center justify-center">
+          <ion-icon name="notifications-outline" class="text-[18px] md:text-[26px]"></ion-icon>
+          <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full hidden"></span>
+        </button>
+
+        <div id="profile-initials" class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
+            DB
+          </div>
+
+        <div class="flex items-center gap-2 text-[#000000]/50">
+          <div class="leading-tight">
+            <p class="text-[12px] font-bold text-[#000000]">David Benjamin</p>
+          <p class="text-[10px]">Admin</p>
+          </div>
+          
+          <div class="relative">
+             
+            <button>
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+            <div class="hidden text-[#E33629] text-[16px] flex items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8">
+        <ion-icon name="log-out-outline" class="text-[20px] scale-x-[-1]"></ion-icon>
+        <p class="whitespace-nowrap">Log out</p>
+      </div>
+          </div>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- MOBILE SEARCH -->
+    <div class="sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
+      <ion-icon name="search" class="text-[18px]"></ion-icon>
+      <input type="text" placeholder="What do you want to find?" class="flex-1 outline-none text-[15px] placeholder:text-[#78909C]">
+    </div>
+
+
+    <!-- CONTENT -->
+    <section class="p-4 sm:p-6 lg:p-8">
+
+      <section class="bg-white rounded-[16px] p-5 sm:p-7 lg:px-12 lg:py-7">
+
+        <h1 class="text-[24px] md:text-[32px] font-bold text-[#085848]">Question Bank</h1>
+        <p class="mt-1 text-[16px] text-[#78909C]">Manage and organize all questions in your question bank</p>
+
+        <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+          <!-- TOTAL QUESTIONS -->
+          <div class="rounded-[15px] bg-[#00C896]/20 px-6 py-5 flex items-center justify-between">
+
+            <div>
+              <p class="text-[16px]">Total Questions</p>
+              <h2 class="mt-2 text-[32px] font-bold">2,450</h2>
+            </div>
+
+            <img src="/Images/total Q.png" alt="question">
+
+          </div>
+
+
+          <!-- PUBLISHED -->
+
+          <div class="rounded-[15px] bg-[#587DBD]/20 px-6 py-5 flex items-center justify-between">
+
+            <div>
+              <p class="text-[16px]">Published Items</p>
+              <h2 class="mt-2 text-[32px] font-bold">1,850</h2>
+            </div>
+
+            <img src="/Images/publish.png" alt="published">
+
+          </div>
+
+          <!-- SUBJECTS -->
+
+             <div class="rounded-[15px] bg-[#800080]/20 px-6 py-5 flex items-center justify-between">
+
+            <div>
+              <p class="text-[16px]">Active Subjects</p>
+              <h2 class="mt-2 text-[32px] font-bold">50</h2>
+            </div>
+
+            <img src="/Images/draft.png" alt="published">
+
+          </div>
+
+
+          <!-- draft -->
+
+          <div class="rounded-[15px] bg-[#F8BD00]/20 px-6 py-5 flex items-center justify-between">
+
+            <div>
+              <p class="text-[16px]">Drafts</p>
+              <h2 class="mt-2 text-[32px] font-bold">125</h2>
+            </div>
+
+            <img src="/Images/subject.png" alt="published">
+
+          </div>
+
+          </div>
+
+      </section>
+
+      <!-- QUESTION BANK -->
+      <section class="mt-5 bg-white rounded-[16px] p-4 sm:p-5">
+
+        <!-- FILTERS -->
+        <div class="grid md:grid-cols-3 gap-3">
+
+          <div class="border border-[#D9D9D9] rounded-[10px] p-3 flex items-center gap-3">
+            <ion-icon name="search" class="text-black/50 text-[18px]"></ion-icon>
+            <input id="question-search" type="text" placeholder="search" class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-black/50">
+          </div>
+
+          <select id="category-filter" class="hidden p-3 border border-[#D9D9D9] rounded-[10px] bg-white outline-none text-[16px] text-black/50 md:block">
+            <option value="all">All Exam Categories</option>
+            <option value="JAMB">JAMB</option>
+            <option value="POST UTME">POST UTME</option>
+            <option value="WAEC">WAEC</option>
+            <option value="NECO">NECO</option>
+          </select>
+
+          <select id="subject-filter" class="hidden md:block p-3 border border-[#D9D9D9] rounded-[10px] bg-white outline-none text-[16px] text-black/50">
+            <option value="all">All Subjects</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="English Language">English Language</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Biology">Biology</option>
+          </select>
+
+        </div>
+
+
+        <div class="mt-3 overflow-x-auto md:overflow-x-hidden">
+
+  <table class="w-full border-collapse text-[14px] text-black">
+
+    <!-- HEAD -->
+    <thead>
+      <tr class="border border-[#D9D9D9] rounded-[10px] text-left text-[14px]">
+        <th class="p-3">ID</th>
+        <th class="p-3 whitespace-nowrap">Exam Category</th>
+        <th class="p-3">Subjects</th>
+        <th class="p-3">Answer</th>
+        <th class="p-3">Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <!-- ROW 1 -->
+      <tr class="question-row border-b border-[#B9C8C5]" data-category="JAMB" data-subject="Mathematics" data-search="Q-1042 JAMB Mathematics Calculus Differentiation">
+        <td class="p-4 whitespace-nowrap">Q - 1042</td>
+
+        <td class="p-4">JAMB</td>
+
+        <td class="p-4">
+          <p>Mathematics</p>
+          <p class="mt-1 text-[12px]">Calculus &amp; Differentiation</p>
+          <p class="mt-1 text-[#78909C] whitespace-nowrap">Find the derivative of f(x) = 3x² + 5x -2</p>
+        </td>
+
+        <td class="p-4">B</td>
+
+        <td class="p-5">
+          <span class="block min-w-[90px] text-center py-2 px-4 bg-[#00c896]/20 text-[#00c896] rounded-[10px]">
+            Published
+          </span>
+        </td>
+      </tr>
+
+
+      <!-- ROW 2 -->
+      <tr class="question-row border-b border-[#B9C8C5]" data-category="JAMB" data-subject="Mathematics" data-search="Q-1042 JAMB Mathematics Calculus Differentiation">
+        <td class="p-4 whitespace-nowrap">Q - 1042</td>
+
+        <td class="p-4">JAMB</td>
+
+        <td class="p-4">
+          <p>Mathematics</p>
+          <p class="mt-1 text-[12px]">Calculus &amp; Differentiation</p>
+          <p class="mt-1 text-[#78909C] whitespace-nowrap">Find the derivative of f(x) = 3x² + 5x -2</p>
+        </td>
+
+        <td class="p-4">B</td>
+
+        <td class="p-5">
+          <span class="block min-w-[90px] text-center py-2 px-4 bg-[#00c896]/20 text-[#00c896] rounded-[10px]">
+            Published
+          </span>
+        </td>
+      </tr>
+
+
+      <!-- ROW 3 -->
+      <tr class="question-row border-b border-[#B9C8C5]" data-category="JAMB" data-subject="Mathematics" data-search="Q-1042 JAMB Mathematics Calculus Differentiation">
+        <td class="p-4 whitespace-nowrap">Q - 1042</td>
+
+        <td class="p-4">JAMB</td>
+
+        <td class="p-4">
+          <p>Mathematics</p>
+          <p class="mt-1 text-[12px]">Calculus &amp; Differentiation</p>
+          <p class="mt-1 text-[#78909C] whitespace-nowrap">Find the derivative of f(x) = 3x² + 5x -2</p>
+        </td>
+
+        <td class="p-4">B</td>
+
+        <td class="p-5">
+          <span class="block min-w-[90px] text-center py-2 px-4 bg-[#00c896]/20 text-[#00c896] rounded-[10px]">
+            Published
+          </span>
+        </td>
+      </tr>
+
+
+      <!-- ROW 4 -->
+      <tr class="question-row border-b border-[#B9C8C5]" data-category="JAMB" data-subject="Mathematics" data-search="Q-1042 JAMB Mathematics Calculus Differentiation">
+        <td class="p-4 whitespace-nowrap">Q - 1042</td>
+
+        <td class="p-4">JAMB</td>
+
+        <td class="p-4">
+          <p>Mathematics</p>
+          <p class="mt-1 text-[12px]">Calculus &amp; Differentiation</p>
+          <p class="mt-1 text-[#78909C] whitespace-nowrap">Find the derivative of f(x) = 3x² + 5x -2</p>
+        </td>
+
+        <td class="p-4">B</td>
+
+        <td class="p-5">
+          <span class="block min-w-[90px] text-center py-2 px-4 bg-[#FFC83D]/20 text-[#FFC83D] rounded-[10px]">
+            Draft
+          </span>
+        </td>
+      </tr>
+
+
+      <!-- ROW 5 -->
+      <tr class="question-row border-b border-[#B9C8C5]" data-category="JAMB" data-subject="Mathematics" data-search="Q-1042 JAMB Mathematics Calculus Differentiation">
+        <td class="p-4 whitespace-nowrap">Q - 1042</td>
+
+        <td class="p-4">JAMB</td>
+
+        <td class="p-4">
+          <p>Mathematics</p>
+          <p class="mt-1 text-[12px]">Calculus &amp; Differentiation</p>
+          <p class="mt-1 text-[#78909C] whitespace-nowrap">Find the derivative of f(x) = 3x² + 5x -2</p>
+        </td>
+
+        <td class="p-4">B</td>
+
+        <td class="p-5">
+          <span class="block min-w-[90px] text-center py-2 px-4 bg-[#FFC83D]/20 text-[#FFC83D] rounded-[10px]">
+            Draft
+          </span>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+
+
+<!-- EMPTY -->
+<div id="empty-state" class="hidden py-12 text-center text-[12px] text-[#78909C]">
+  No questions found.
+</div>
+      </section>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

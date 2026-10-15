@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamPrep NG - Admin Login</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/authentication/student-authentication.js"></script>
+
+</head>
+
+<body class="bg-[#085848] text-['Inter']">
+
+<main class="flex flex-col items-center justify-center px-4 py-10 sm:px-6">
+
+  <!-- LOGO -->
+  <div class="flex items-center gap-2 mb-8">
+    <img src="/Images/logo (1).png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
+    <p class="text-white text-[22px] font-bold">ExamPrep NG</p>
+  </div>
+
+  <!-- CARD -->
+  <section class="w-full max-w-[350px] md:max-w-[500px] bg-white rounded-[10px] px-6 sm:px-9 py-8 sm:py-10">
+
+    <div class="text-center">
+      <h1 class="text-[32px] font-bold text-[#085848]">Welcome Back!</h1>
+      <p class="mt-2 text-[16px] text-[#78909C]">
+        Please enter your details to continue to dashboard.
+      </p>
+    </div>
+
+    <form id="login-form" class="mt-8">
+
+      <!-- EMAIL -->
+      <div class="mb-5">
+        <label for="name" class="block mb-2 text-[16px] text-black">
+          Email
+        </label>
+
+        <div class="flex items-center gap-2 border border-[#d8e0de] p-4 text-[#78909C] rounded-[7px] text-[14px]">
+          <ion-icon name="mail-outline" class="text-[18px]"></ion-icon>
+          <input id="name" type="text" placeholder="Enter your full email" required class="w-full outline-none placeholder:text-[#78909C]">
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="mb-5">
+        <label for="name" class="block mb-2 text-[16px] text-black">
+          Password
+        </label>
+
+        <div class="flex items-center gap-2 border border-[#d8e0de] p-4 text-[#78909C] rounded-[7px] text-[14px]">
+          <ion-icon name="lock-closed-outline" class="text-[18px]"></ion-icon>
+          <input id="name" type="text" placeholder="Enter your password" required class="w-full outline-none placeholder:text-[#78909C]">
+
+          <button type="button" class="toggle-password flex items-center justify-center shrink-0">
+
+            <ion-icon name="eye-off" class="toggle-password text-2xl text-black"></ion-icon>
+            </button>
+        </div>
+      </div>
+
+      <!-- REMEMBER / FORGOT -->
+      <div class="flex items-center justify-between gap-4">
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" class="accent-[#085848]">
+        <label for="remember-me" class="text-[#78909C] text-[14px]">Remember me</label>
+        </div>
+
+        <a href="./admin-forget-pass.html" class="text-[14px] font-medium text-[#085848]">
+          Forgot Password?
+        </a>
+
+      </div>
+
+      <!-- LOGIN -->
+      <button type="submit" class="w-full p-4 mt-7 bg-[#085848] rounded-[6px] text-white text-[16px]">
+        Sign in
+      </button>
+
+    </form>
+
+    <div class="my-10 flex items-center gap-5">
+
+          <div class=" h-px bg-[#78909C] flex-1"></div>
+          <span class="text-[11px] font-bold text-[#78909C]"> OR</span>
+
+          <div class="h-px bg-[#78909C] flex-1"></div>
+        </div>
+
+    <!-- GOOGLE -->
+    <div class="mt-5">
+
+      <button id="google-login" type="button" class="w-full p-4 border border-[#d8e0de] rounded-[6px] bg-white flex items-center justify-center gap-3 text-[16px] text-black">
+
+        <img src="/Images/google.png" alt="Google" class="w-4 h-4 object-contain">
+
+        Continue with Google
+
+      </button>
+
+    </div>
+
+    <!-- SIGN UP -->
+    <p class="mt-7 text-center text-[14px] text-[#78909C]">
+      Don't have an account?
+      <a href="./admin-signup.html" class="ml-1 text-[#085848]">
+        Sign up
+      </a>
+    </p>
+  </section>
+
+</main>
+
+
+<script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

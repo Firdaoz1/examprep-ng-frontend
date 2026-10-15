@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamPrep NG Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./script.js" defer></script>
+  <script src="./practice.js" defer></script>
+</head>
+
+<body class="bg-[#F8F8F8] font-['Inter']">
+
+  <div class="min-h-screen flex">
+    <aside id="sidebar"
+      class="fixed top-0 left-0 z-50 md:h-screen md:w-[86px] bg-[#003028] text-white w-full -translate-x-full lg:translate-x-0  lg:sticky lg:w-[250px] transition-transform duration-300 flex flex-col px-4 lg:px-5 py-6">
+
+      <div class="flex items-center justify-between gap-2 mb-2 lg:mb-9 px-1 md:flex-col">
+        <div class="flex items-center gap-2 md:order-2">
+          <img src="/Images/logo.png" alt="logo-image" class="w-7 h-7 shrink-0">
+          <span class="text-[24px] font-extraBold font-bold whitespace-nowrap md:hidden lg:block">
+            ExamPrep NG</span>
+        </div>
+
+        <button id="close-btn" class="md:order-1 lg:hidden">
+          <ion-icon name="close-outline" class="w-10 h-10 flex" id="close-icon"></ion-icon>
+        </button>
+      </div>
+      <nav class="space-y-2">
+
+        <a href="./dashboard.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg font-bold text-[16px]">
+
+          <ion-icon name="home" class="w-5 h-5 shrink-0"></ion-icon></ion-icon>
+          <p class="md:hidden lg:block"> Dashboard</p>
+        </a>
+
+        <a href="./practice.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="book" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Practice</p>
+        </a>
+
+        <a href="./performance.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="bar-chart" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Performance</p>
+        </a>
+
+        <a href="./progress.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="analytics" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block"> Progress</p>
+        </a>
+
+        <a href="./bookmark.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="bookmark" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Bookmarks</p>
+        </a>
+
+        <a href="./settings.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="settings" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Settings</p>
+        </a>
+      </nav>
+
+      <div class="my-auto pb-3">
+        <div class="hidden w-8 h-[3px] bg-yellow-400 mb-4 md:mx-auto lg:mx-0 md:block"></div>
+        <p class="text-[16px] leading-5 font-semibold hidden lg:block">
+          Small steps<br>today, big results<br> tomorrow.</p>
+      </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 bg-[#F8F8F8]">
+      <header class="px-4 sm:px-6 lg:px-8 py-4">
+
+        <div class="flex items-center justify-between gap-4">
+
+          <!-- Mobile/Tablet Menu -->
+          <button id="menuBtn"
+            class="lg:hidden border border-border rounded-lg flex items-center justify-center relative">
+
+            <ion-icon name="menu-outline" class="text-[24px] absolute pl-3 md:pl-0" id="menu-icon"></ion-icon>
+          </button>
+
+          <!-- Search Desktop / Tablet -->
+          <div
+            class="search hidden sm:flex flex-1 max-w-[500px] p-4 border border-border rounded-xl items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
+
+            <input type="text" placeholder="Search topics, questions, or anything..."
+              class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <!-- Mobile Search -->
+          <div class="search sm:hidden p-4 border border-border rounded-xl flex items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-4 h-4"></ion-icon>
+
+            <input type="text" placeholder="Search topics or questions..."
+              class=" flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button id="notification-button" class="relative">
+              <ion-icon name="notifications-outline" class="w-6 h-6"></ion-icon>
+              <span id="notification-dot"
+                class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white hidden"></span>
+            </button>
+
+            <div id="profile-initials"
+              class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
+
+            </div>
+
+            <div id="profile-name" class="hidden sm:block leading-tight">
+              <p class="text-[12px] font-bold">
+
+              </p>
+              <p id="profile-role" class="text-[10px] text-[#78909C] font-medium">
+                JAMB candidate
+              </p>
+            </div>
+
+            <a href="./settings.html"><ion-icon id="profile-dropdown" name="chevron-down-outline"
+                class="hidden md:block w-4 h-4 text-[#78909C]"></ion-icon></a>
+          </div>
+        </div>
+
+      </header>
+
+      <div class="px-4 sm:px-6 lg:px-8 py-6">
+
+        <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_350px] gap-7">
+
+          <div class="min-w-0">
+
+            <a href="./dashboard.html" class="flex items-center gap-2 text-[11px] text-[#085848]"><ion-icon
+                name="arrow-back-outline" class="text-black"></ion-icon>Back to Dashboard</a>
+
+            <div class="mt-4">
+              <h1 class="text-[29px] md:text-[32px] font-bold text-[#085848] font-bold">What would you like to practice
+                ?</h1>
+
+              <p class="mt-2 text-[12px] md:text-[16px] font-bold text-[#78909C]">Choose a practice type, subject and
+                topic to get started.</p>
+            </div>
+
+            <section class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+
+              <button class="practice-card rounded-xl border border-[#D9D9D9] bg-white p-5 text-left flex flex-col">
+
+                <img src="/Images/quickk.png" alt="Topic Practice" class="w-10">
+
+                <h2 class="mt-3 text-[20px] font-bold">Topic Practice</h2>
+
+                <p class="mt-2 text-[16px] leading-5 text-[#78909C] font-medium">Focus on a specific topic or area of
+                  study.</p>
+
+                <div
+                  class="practice-radio mt-2 w-4 h-4 rounded-full border border-[#D9D9D9] flex items-center justify-center">
+                  <span class="radio w-2 h-2 rounded-full"></span>
+                </div>
+              </button>
+
+
+              <button
+                class="practice-card rounded-xl border border-[#D9D9D9] bg-white p-5 text-left flex flex-col transition">
+
+                <img src="/Images/Quick.png" alt="Topic Practice" class="w-10">
+
+                <h2 class="mt-3 text-[20px] font-bold text-black">Quick Practice</h2>
+
+                <p class="mt-2 text-[16px] md:text-[16px] leading-5 text-[#78909C] font-medium">A shot set of questions.
+                </p>
+
+                <div
+                  class="practice-radio mt-2 w-4 h-4 rounded-full border border-[D9D9D9] flex items-center justify-center">
+                  <span class="radio w-2 h-2 rounded-full"></span>
+                </div>
+              </button>
+
+
+              <button
+                class="practice-card rounded-xl border border-[#D9D9D9] bg-white p-5 text-left flex flex-col transition">
+
+                <img src="/Images/question.png" alt="Topic Practice" class="w-10">
+
+                <h2 class="mt-3 text-[20px] font-bold text-black">Past Questions</h2>
+
+                <p class="mt-2 text-[16px] leading-5 text-[#78909C] font-medium">Practice real exam questions.</p>
+
+                <div
+                  class="practice-radio mt-2 w-4 h-4 rounded-full border border-[#D9D9D9] flex items-center justify-center">
+                  <span class="radio w-2 h-2 rounded-full"></span>
+                </div>
+              </button>
+
+
+              <button
+                class="practice-card rounded-xl border border-[#D9D9D9] bg-white p-5 text-left flex flex-col transition">
+
+                <img src="/Images/recommend.png" alt="Topic Practice" class="w-10">
+
+                <h2 class="mt-3 text-[20px] font-bold text-black">Recommended</h2>
+
+                <p class="mt-2 text-[16px] leading-5 text-[#78909C] font-medium">Based on your weak topics.</p>
+
+                <div
+                  class="practice-radio mt-2 w-4 h-4 rounded-full border border-[#D9D9D9] flex items-center justify-center">
+                  <span class="radio w-2 h-2 rounded-full"></span>
+                </div>
+              </button>
+
+            </section>
+
+            <section class="mt-10">
+
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 shrink-0 rounded-full bg-[#085848] text-white flex items-center justify-center text-[12px] font-bold">
+                  1</div>
+
+                <div>
+                  <h2 class="text-[20px] font-bold text-[#085848] font-bold">Select Subject</h2>
+                  <p class="mt-1 text-[16px] text-[#78909C] font-bold">Choose the subject you want to practise.</p>
+                </div>
+              </div>
+
+
+              <div id="subjects-container"
+                class="mt-7 pl-0 sm:pl-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+
+              </div>
+            </section>
+
+            <section class="mt-8">
+
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 shrink-0 rounded-full bg-[#085848] text-white flex items-center justify-center text-[12px] font-bold">
+                  2
+                </div>
+
+                <div>
+                  <h2 class="text-[20px] font-bold text-[#085848]">Select Topic</h2>
+
+                  <p class="mt-1 text-[16px] text-[#78909C] font-bold">Choose a topic within the subject.</p>
+                </div>
+              </div>
+
+              <div
+                class="mt-6 sm:ml-12 width-full max-w-[720px] px-4 bg-white border border-[#D9D9D9] rounded-xl flex items-center gap-3">
+
+                <img src="/Images/alg.png" alt="pi" class="w-10">
+
+                <select id="topic-select"
+                  class="flex-1 bg-transparent border-none outline-none text-[20px] font-bold text-black p-5">
+
+                  <option>Select a Topic</option>
+
+                </select>
+              </div>
+            </section>
+
+
+            <section class="mt-8">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-8 h-8 shrink-0 rounded-full bg-[#085848] text-white flex items-center justify-center text-[12px] font-bold">
+                  3
+                </div>
+
+                <div>
+                  <div class="flex flex-wrap items-center gap-1">
+                    <h2 class="text-[20px] font-bold text-[#085848]"> Select Question Source</h2>
+
+                    <p class="text-[16px] text-[#78909C] font-bold">(optional)</p>
+                  </div>
+
+                  <p class="mt-1 text-[16px] text-[#78909C] font-bold">Choose a topic within the subject.</p>
+                </div>
+              </div>
+
+              <div class="mt-6 sm:ml-12 flex flex-wrap gap-2">
+
+                <button
+                  class="question-year px-5 py-3 rounded-full border border-[#D9D9D9] bg-white text-[#085848] text-[20px] font-bold">All
+                  Years</button>
+
+                <button
+                  class="question-year px-5 py-3 rounded-full border border-[#D9D9D9] bg-white text-[#085848] text-[20px] font-bold">2025</button>
+
+                <button
+                  class="question-year px-5 py-3 rounded-full border border-[#D9D9D9] bg-white text-[#085848] text-[20px] font-bold">2024</button>
+
+                <button
+                  class="question-year px-5 py-3 rounded-full border border-[#D9D9D9] bg-white text-[#085848] text-[20px] font-bold">2023</button>
+              </div>
+
+            </section>
+
+            <div class="hidden mt-6 flex justify-end lg:flex">
+
+              <button
+                class="start-practice w-full sm:w-auto min-w-[165px] p-4 rounded-lg bg-[#085848] text-white text-[16px] font-bold flex items-center justify-center gap-3">Start
+                Practice <ion-icon name="arrow-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:sticky lg:top-6 lg:self-start">
+
+            <div class="flex items-center gap-2 mb-3">
+
+              <div class="w-9 h-9 flex items-center justify-center">
+
+                <img src="/Images/prac-sum.png" alt="">
+              </div>
+
+              <h2 class="text-[20px] font-bold text-[#085848]">Practice Summary</h2>
+            </div>
+
+            <section class="bg-white border border-[#D9D9D9] rounded-2xl px-5 py-4">
+
+
+              <div class="flex justify-between gap-5 py-2 font-bold text-[16px]">
+                <p class="text-[#78909C]">Practice</p>
+                <p id="summary-practice" class="text-[#085848] text-right"></p>
+              </div>
+
+
+              <div class="flex justify-between gap-5 py-2 font-bold text-[16px]">
+                <p class="text-[#78909C]">Subject</p>
+                <p id="summary-subject" class="text-[#085848] text-right"></p>
+              </div>
+
+
+              <div class="flex justify-between gap-5 py-2 font-bold text-[16px]">
+                <p class="text-[#78909C]">Topic</p>
+                <p id="summary-topic" class="text-[#085848] text-right"></p>
+              </div>
+
+
+              <div class="flex justify-between gap-5 py-2 font-bold text-[16px]">
+                <p class="text-[#78909C]">Questions</p>
+                <p id="summary-questions" class="text-[#085848] text-right"></p>
+              </div>
+
+
+              <div class="flex justify-between gap-5 py-2 font-bold text-[16px]">
+                <div class="flex text-[#78909C] gap-1 items-center">
+                  <ion-icon name="time-outline"></ion-icon>
+                  <p>Estimated Time</p>
+                </div>
+                <p id="summary-time" class="text-[#085848] text-right"></p>
+              </div>
+            </section>
+
+            <div class="mt-6 flex justify-end lg:hidden">
+
+              <button
+                class="start-practice w-full sm:w-auto min-w-[165px] p-4 rounded-lg bg-[#085848] text-white text-[16px] font-bold flex items-center justify-center gap-3">Start
+                Practice <ion-icon name="arrow-forward-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

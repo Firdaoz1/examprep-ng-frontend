@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExamPrep NG Bookmark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./script.js" defer></script>
+  <script src="./bookmark.js" defer></script>
+</head>
+
+<body class="bg-[#F8F8F8] font-['Inter']">
+
+  <div class="min-h-screen flex">
+    <aside id="sidebar"
+      class="fixed top-0 left-0 z-50 md:h-screen md:w-[86px] bg-[#003028] text-white w-full -translate-x-full lg:translate-x-0  lg:sticky lg:w-[250px] transition-transform duration-300 flex flex-col px-4 lg:px-5 py-6">
+
+      <div class="flex items-center justify-between gap-2 mb-2 lg:mb-9 px-1 md:flex-col">
+        <div class="flex items-center gap-2 md:order-2">
+          <img src="/Images/logo.png" alt="logo-image" class="w-7 h-7 shrink-0">
+          <span class="text-[24px] font-extraBold font-bold whitespace-nowrap md:hidden lg:block">
+            ExamPrep NG</span>
+        </div>
+
+        <button id="close-btn" class="md:order-1 lg:hidden">
+          <ion-icon name="close-outline" class="w-10 h-10 flex" id="close-icon"></ion-icon>
+        </button>
+      </div>
+      <nav class="space-y-2">
+
+        <a href="./dashboard.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg font-bold text-[16px]">
+
+          <ion-icon name="home" class="w-5 h-5 shrink-0"></ion-icon></ion-icon>
+          <p class="md:hidden lg:block"> Dashboard</p>
+        </a>
+
+        <a href="./practice.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="book" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Practice</p>
+        </a>
+
+        <a href="./performance.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="bar-chart" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Performance</p>
+        </a>
+
+        <a href="./progress.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg  text-[16px] font-bold">
+
+          <ion-icon name="analytics" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block"> Progress</p>
+        </a>
+
+        <a href="./bookmark.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="bookmark" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Bookmarks</p>
+        </a>
+
+        <a href="./settings.html"
+          class="screen flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-[16px] font-bold">
+
+          <ion-icon name="settings" class="w-5 h-5 shrink-0"></ion-icon>
+          <p class="md:hidden lg:block">Settings</p>
+        </a>
+      </nav>
+
+      <div class="my-auto pb-3">
+        <div class="hidden w-8 h-[3px] bg-yellow-400 mb-4 md:mx-auto lg:mx-0 md:block"></div>
+        <p class="text-[16px] leading-5 font-semibold hidden lg:block">
+          Small steps<br>today, big results<br> tomorrow.</p>
+      </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 bg-[#F8F8F8]">
+      <header class="px-4 sm:px-6 lg:px-8 py-4">
+
+        <div class="flex items-center justify-between gap-4">
+
+          <!-- Mobile/Tablet Menu -->
+          <button id="menuBtn"
+            class="lg:hidden border border-border rounded-lg flex items-center justify-center relative">
+
+            <ion-icon name="menu-outline" class="text-[24px] text-[#083830] pl-3 absolute md:pl-0"
+              id="menu-icon"></ion-icon>
+          </button>
+
+          <!-- Search Desktop / Tablet -->
+          <div
+            class="search hidden sm:flex flex-1 max-w-[500px] p-4 border border-border rounded-xl items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-5 h-5"></ion-icon>
+
+            <input type="text" placeholder="Search topics, questions, or anything..."
+              class="flex-1 min-w-0 outline-none bg-transparent text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <!-- Mobile Search -->
+          <div class="search sm:hidden p-4 border border-border rounded-xl flex items-center px-4 gap-3">
+
+            <ion-icon name="search-outline" class="w-4 h-4"></ion-icon>
+
+            <input type="text" placeholder="Search topics or questions..."
+              class=" flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#78909C] placeholder:font-bold" />
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4">
+
+            <button id="notification-button" class="relative">
+              <ion-icon name="notifications-outline" class="w-6 h-6"></ion-icon>
+              <span id="notification-dot"
+                class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white hidden"></span>
+            </button>
+
+            <div id="profile-initials"
+              class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
+
+            </div>
+
+            <div id="profile-name" class="hidden sm:block leading-tight">
+              <p class="text-[12px] font-bold">
+
+              </p>
+              <p id="profile-role" class="text-[10px] text-[#78909C] font-medium">
+                JAMB candidate
+              </p>
+            </div>
+
+            <a href="./settings.html"><ion-icon id="profile-dropdown" name="chevron-down-outline"
+                class="hidden md:block w-4 h-4 text-[#78909C]"></ion-icon></a>
+          </div>
+        </div>
+
+
+      </header>
+
+      <div class="p-3 sm:p-5 lg:p-7">
+
+
+        <div class="font-bold">
+          <h1 class="text-[32px] text-[#085848]">Bookmarks</h1>
+          <p class="mt-1 text-[16px] text-[#78909C]">Quick access to questions you've saved for later.</p>
+        </div>
+
+
+        <section class="mt-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+          <div class="flex flex-wrap gap-2">
+            <button data-subject="All"
+              class="bookmark-filter px-5 py-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] text-[#78909C] text-[16px] font-bold">All</button>
+            <button data-subject="Mathematics"
+              class="bookmark-filter px-5 py-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] text-[#78909C] text-[16px] font-bold">Mathematics</button>
+            <button data-subject="Physics"
+              class="bookmark-filter px-5 py-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] text-[#78909C] text-[16px] font-bold">Physics</button>
+            <button data-subject="Chemistry"
+              class="bookmark-filter px-5 py-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] text-[#78909C] text-[16px] font-bold">Chemistry</button>
+            <button data-subject="English"
+              class="bookmark-filter px-5 py-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] text-[#78909C] text-[16px] font-bold">English</button>
+          </div>
+
+          <p id="saved-count" class="text-[16px] font-bold text-[#085848] whitespace-nowrap"></p>
+        </section>
+
+
+        <section id="bookmark-list" class="mt-7 space-y-4">
+
+
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamPrep NG Answer Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./answerreview.js" defer></script>
+</head>
+
+<body class="bg-[#655D5D] text-black text-['inter']">
+
+  <main class="min-h-screen p-3 sm:p-5 lg:p-6">
+    <section
+      class="w-full max-w-[1250px] min-h-[calc(100vh-48px)] mx-auto bg-white rounded-[20px] px-5 sm:px-7 lg:px-8 py-6">
+
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+        <div>
+          <h1 class="text-[24px] sm:text-[24px] font-bold text-black"></h1>
+          <p class="mt-2 text-[16px] sm:text-[15px] text-[#78909C]"> <span id="totalScore"></span></p>
+        </div>
+
+        <div class="flex flex-col gap-3 w-full lg:w-[420px]">
+          <a href="./performance.html"
+            class="bg-[#085848] text-white rounded-[10px] flex items-center justify-center gap-4 text-[16px] font-semibold p-4">
+            Go to Performance Dashboard
+            <ion-icon name="arrow-forward-outline" class="text-[22px]"></ion-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-5 border-b border-[#D9D9D9] overflow-x-auto">
+        <div class="flex min-w-max gap-8 sm:gap-10">
+          <button
+            class="review-tab active-tab pb-3 text-[16px] sm:text-[17px] font-semibold text-[#085848] border-b-2 border-[#085848]"
+            data-filter="all">All questions </button>
+          <button class="review-tab pb-3 text-[16px] font-semibold text-[#000000]/50 border-b-2 border-transparent"
+            data-filter="correct">Correct </button>
+          <button class="review-tab pb-3 text-[16px] font-semibold text-[#000000]/50 border-b-2 border-transparent"
+            data-filter="incorrect">Incorrect </button>
+          <button class="review-tab pb-3 text-[16px] font-semibold text-[#000000]/50 border-b-2 border-transparent"
+            data-filter="skipped">Skipped </button>
+        </div>
+      </div>
+
+      <section id="questionGrid" class="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+
+
+        </div>
+
+
+      </section>
+
+      <div id="emptyState" class="hidden py-16 text-center">
+        <p class="text-[15px] font-semibold text-[#78909C]">No questions in this category.</p>
+      </div>
+
+    </section>
+  </main>
+
+
+  <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

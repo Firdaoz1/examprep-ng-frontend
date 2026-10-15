@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamPrep NG - Verification message</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./email-sent.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-white font-['Inter'] flex items-center justify-center px-5">
+
+  <main class="w-full max-w-[500px] text-center">
+
+    <img src="/Images/logo 2.png" alt="ExamPrep NG logo" class="w-[180px] mx-auto mb-10">
+
+      <img src="/Images/verification.png" alt="">
+
+    <h1 class="mt-7 text-[40px] font-bold text-[#083830]">Check your email</h1>
+
+    <p class="mt-4 text-[16px] leading-7 text-[#78909C]">
+      We've sent a verification link to your email address. Please open the email and click the link to verify your account and continue with ExamPrep NG.
+    </p>
+
+    <p id="sent-email" class="mt-4 font-bold text-[#085848] break-words"></p>
+
+    <p class="mt-6 text-[14px] text-[#78909C]">
+      Can't find the email? Check your spam or junk folder.
+    </p>
+
+    <button id="resend-email" class="inline-flex mt-8 px-8 py-4 rounded-lg bg-[#085848] text-white font-bold text-[14px]">
+      Resend Verification Email
+    </button>
+
+    <p id="resend-message"></p>
+
+  </main>
+
+</body>
+</html>
