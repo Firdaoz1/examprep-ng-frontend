@@ -16,102 +16,92 @@
 
 <body class="bg-[#F8F8F8] font-['Inter']">
 
-<div class="min-h-screen flex">
+  <div class="min-h-screen flex">
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
-    
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
 
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
-        <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
+          <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
+        </div>
+
+        <button id="sidebar-close" type="button" class="lg:hidden text-[28px]" aria-label="Close sidebar">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
       </div>
 
-      <button id="sidebar-close" type="button" class="lg:hidden text-[28px]">
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
-    </div>
+      <nav class="mt-10 space-y-3">
+        <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="home" class="text-[22px]"></ion-icon>
+          <span>Dashboard</span>
+        </a>
 
-    <nav class="mt-10 space-y-3">
+        <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="albums" class="text-[22px]"></ion-icon>
+          <span>Questions Bank</span>
+        </a>
 
-      <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
-        <ion-icon name="home" class="text-[22px]"></ion-icon>
-        <span>Dashboard</span>
-      </a>
+        <a href="./add-question.html" aria-current="page"
+          class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
+          <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
+          <span>Add Question</span>
+        </a>
+      </nav>
 
-      <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="albums" class="text-[22px]"></ion-icon>
-        <span>Questions Bank</span>
-      </a>
+    </aside>
 
-      <a href="./add-question.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
-        <span>Add Question</span>
-      </a>
+    <!-- MAIN -->
+    <main class="w-full min-h-screen lg:ml-[250px]">
 
-    </nav>
+      <!-- HEADER -->
+      <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
 
-  </aside>
+        <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2"
+          aria-label="Open sidebar">
+          <ion-icon name="menu"></ion-icon>
+        </button>
 
-  <!-- MAIN -->
-  <main class="w-full min-h-screen lg:ml-[250px]">
+        <!-- DESKTOP/TABLET SEARCH -->
+        <div
+          class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
+          <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
+          <input type="search" id="admin-search-desktop"
+            class="flex-1 min-w-0 outline-none text-[15px] placeholder:text-[#78909C]"
+            placeholder="What do you want to find?" aria-label="Search admin dashboard">
+        </div>
 
-    <!-- HEADER -->
-    <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+        <div class="ml-auto flex items-center gap-3">
 
-      <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2">
-        <ion-icon name="menu"></ion-icon>
-      </button>
+          <div id="profile-initials"
+            class="hidden md:flex w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold">
+            
+          </div>
 
-      <!-- desktop/tablet search -->
-      <div class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
-        <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
-        <input
-  type="text"
-  id="admin-search-mobile"
-  class="admin-search flex-1 outline-none text-[15px] placeholder:text-[#78909C]"
-  placeholder="What do you want to find?"
->
-      </div>
+          <div class="flex items-center gap-2 text-[#000000]/50">
+            <div class="leading-tight">
+              <p id="admin-name" class="text-[12px] font-bold text-[#000000]"></p>
+              <p id="admin-role" class="text-[10px]">Admin</p>
+            </div>
 
-      <div class="ml-auto flex items-center gap-3">
+            <div class="relative">
+              <button id="profile-menu-btn" type="button" aria-expanded="false" aria-label="Open profile menu">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+              </button>
 
-        <div id="profile-initials"
-     class="hidden w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold md:flex">
-  AD
-</div>
+              <div id="profile-dropdown"
+                class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
+                <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
+                  <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
+                  <span>Log out</span>
+                </button>
+              </div>
+            </div>
+          </div>
 
-<div class="flex items-center gap-2 text-[#000000]/50">
-  <div class="leading-tight">
-    <p id="admin-name" class="text-[12px] font-bold text-[#000000]">
-      Admin
-    </p>
-    <p id="admin-role" class="text-[10px]">Admin</p>
-  </div>
-
-  <div class="relative">
-    <button id="profile-menu-btn"
-            type="button"
-            aria-expanded="false"
-            aria-label="Open profile menu">
-      <ion-icon name="chevron-down-outline"></ion-icon>
-    </button>
-
-    <div id="profile-dropdown"
-         class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
-      <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
-        <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
-        <span>Log out</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-      </div>
-
-    </header>
-
+        </div>
+      </header>
 
     <!-- MOBILE SEARCH -->
     <div class="admin-search sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
@@ -232,14 +222,16 @@
 
     <!-- HEAD -->
     <thead>
-      <tr class="border border-[#D9D9D9] rounded-[10px] text-left text-[14px]">
-        <th class="p-3">ID</th>
-        <th class="p-3 whitespace-nowrap">Exam Category</th>
-        <th class="p-3">Subjects</th>
-        <th class="p-3">Answer</th>
-        <th class="p-3">Status</th>
-      </tr>
-    </thead>
+  <tr class="border border-[#D9D9D9] text-left text-sm">
+    <th class="p-3">ID</th>
+    <th class="p-3 whitespace-nowrap">Exam Category</th>
+    <th class="p-3">Subjects</th>
+    <th class="p-3">Answer</th>
+    <th class="p-3">Status</th>
+  </tr>
+</thead>
+
+<tbody id="question-table-body"></tbody>
 
     <tbody id="question-table-body">
 

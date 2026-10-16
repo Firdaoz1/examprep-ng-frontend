@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const draftQuestionsEl = document.getElementById("draft-questions");
 
   const searchInput = document.getElementById("question-search");
-  const categoryFilter = document.getElementById("category-filter");
+  const categoryFilter = document.getElementById("exam-category-filter");
   const subjectFilter = document.getElementById("subject-filter");
   const tableBody = document.getElementById("question-table-body");
 
@@ -60,27 +60,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // Support common response wrappers without assuming
   // that the backend has already added the questions array.
   function extractQuestions(response) {
-    const possibleArrays = [
-      response?.data?.questions,
-      response?.data?.items,
-      response?.data?.questionBank?.questions,
-      response?.questionBank?.questions,
-      response?.questions,
-      response?.items,
-    ];
+  const possibleArrays = [
+    response?.data?.questions,
+    response?.data?.items,
+    response?.data?.recentActivity,
+    response?.data?.questionBank?.questions,
+    response?.questionBank?.questions,
+    response?.questions,
+    response?.items,
+  ];
 
-    return possibleArrays.find(Array.isArray) || [];
-  }
+  return possibleArrays.find(Array.isArray) || [];
+}
 
   function getQuestionFields(question) {
     return {
       id: question._id ?? question.id ?? question.questionId ?? "",
       category:
-        question.examCategory ??
-        question.exam?.name ??
-        question.category ??
-        question.examType ??
-        "",
+  question.examCategory ??
+  (typeof question.exam === "string"
+    ? question.exam
+    : question.exam?.name) ??
+  question.examName ??
+  question.category ??
+  question.examType ??
+  question.examCode ??
+  "",
       subject:
         question.subject?.name ??
         question.subjectName ??
@@ -272,50 +277,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     filteredQuestions.forEach((question) => {
-      const fields = getQuestionFields(question);
+  const fields = getQuestionFields(question);
+  const status = fields.status || "Unknown";
 
-      const status = fields.status || "Unknown";
+  const row = document.createElement("tr");
+  row.className = "border-b border-gray-200 hover:bg-gray-50";
 
-      const row = document.createElement("tr");
-      row.className = "border-b border-gray-100 hover:bg-gray-50";
+  const statusClass =
+    status.toLowerCase() === "published" ||
+    status.toLowerCase() === "active"
+      ? "bg-green-100 text-green-700"
+      : status.toLowerCase() === "draft"
+        ? "bg-yellow-100 text-yellow-700"
+        : "bg-gray-100 text-gray-600";
 
-      row.innerHTML = `
-        <td class="px-4 py-4 text-sm">
-          ${escapeHTML(fields.id || "—")}
-        </td>
+  row.innerHTML = `
+    <td class="px-4 py-5 text-sm whitespace-nowrap">
+      ${escapeHTML(fields.id || "—")}
+    </td>
 
-        <td class="px-4 py-4 text-sm">
-          ${escapeHTML(fields.category || "—")}
-        </td>
+    <td class="px-4 py-5 text-sm whitespace-nowrap">
+      ${escapeHTML(fields.category || "—")}
+    </td>
 
-        <td class="px-4 py-4 text-sm">
-          ${escapeHTML(fields.subject || "—")}
-        </td>
+    <td class="px-4 py-5 text-sm">
+      <div class="font-medium">
+        ${escapeHTML(fields.subject || "—")}
+      </div>
+      <div class="mt-1 text-xs text-gray-600">
+        ${escapeHTML(fields.topic || "")}
+      </div>
+      <div class="mt-1 text-xs text-gray-400">
+        ${escapeHTML(fields.text || "")}
+      </div>
+    </td>
 
-        <td class="px-4 py-4 text-sm">
-          ${escapeHTML(fields.topic || "—")}
-        </td>
+    <td class="px-4 py-5 text-sm">
+      —
+    </td>
 
-        <td class="px-4 py-4 text-sm">
-          ${escapeHTML(fields.text || "—")}
-        </td>
+    <td class="px-4 py-5 text-sm">
+      <span class="inline-block rounded-full px-3 py-1 text-xs font-medium ${statusClass}">
+        ${escapeHTML(status)}
+      </span>
+    </td>
+  `;
 
-        <td class="px-4 py-4 text-sm">
-          <span class="rounded-full px-3 py-1 text-xs font-medium ${
-            status.toLowerCase() === "published" ||
-            status.toLowerCase() === "active"
-              ? "bg-green-100 text-green-700"
-              : status.toLowerCase() === "draft"
-                ? "bg-yellow-100 text-yellow-700"
-                : "bg-gray-100 text-gray-600"
-          }">
-            ${escapeHTML(status)}
-          </span>
-        </td>
-      `;
-
-      tableBody.appendChild(row);
-    });
+  tableBody.appendChild(row);
+});
   }
 
   async function loadQuestions() {
@@ -375,6 +384,8 @@ console.log("Extracted questions:", extractQuestions(result));
 
       allQuestions = extractQuestions(result);
 
+      console.log("API response:", result);
+console.log("Questions loaded:", allQuestions);
       renderStatistics(allQuestions, summary);
       populateFilters(allQuestions);
       renderQuestions();

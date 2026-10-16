@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,352 +15,241 @@
   <script src="./admin-dashboard.js"></script>
 </head>
 
-<body class="bg-[#F8F8F8] text-['Inter']">
+<body class="bg-[#F8F8F8] font-['Inter']">
 
-<div class="min-h-screen flex">
+  <div class="min-h-screen flex">
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
-    
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
 
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
-        <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
+          <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
+        </div>
+
+        <button id="sidebar-close" type="button" class="lg:hidden text-[28px]" aria-label="Close sidebar">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
       </div>
 
-      <button id="sidebar-close" type="button" class="lg:hidden text-[28px]">
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
-    </div>
+      <nav class="mt-10 space-y-3">
+        <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="home" class="text-[22px]"></ion-icon>
+          <span>Dashboard</span>
+        </a>
 
-    <nav class="mt-10 space-y-3">
+        <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="albums" class="text-[22px]"></ion-icon>
+          <span>Questions Bank</span>
+        </a>
 
-      <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
-        <ion-icon name="home" class="text-[22px]"></ion-icon>
-        <span>Dashboard</span>
-      </a>
+        <a href="./add-question.html" aria-current="page"
+          class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
+          <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
+          <span>Add Question</span>
+        </a>
+      </nav>
 
-      <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="albums" class="text-[22px]"></ion-icon>
-        <span>Questions Bank</span>
-      </a>
+    </aside>
 
-      <a href="./add-question.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
-        <span>Add Question</span>
-      </a>
+    <!-- MAIN -->
+    <main class="w-full min-h-screen lg:ml-[250px]">
 
-    </nav>
+      <!-- HEADER -->
+      <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
 
-  </aside>
+        <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2"
+          aria-label="Open sidebar">
+          <ion-icon name="menu"></ion-icon>
+        </button>
 
-  <!-- MAIN -->
-  <main class="w-full min-h-screen lg:ml-[250px]">
+        <!-- DESKTOP/TABLET SEARCH -->
+        <div
+          class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
+          <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
+          <input type="search" id="admin-search-desktop"
+            class="flex-1 min-w-0 outline-none text-[15px] placeholder:text-[#78909C]"
+            placeholder="What do you want to find?" aria-label="Search admin dashboard">
+        </div>
 
-    <!-- HEADER -->
-    <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
+        <div class="ml-auto flex items-center gap-3">
 
-      <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2">
-        <ion-icon name="menu"></ion-icon>
-      </button>
+          <div id="profile-initials"
+            class="hidden md:flex w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold">
+            
+          </div>
 
-      <!-- desktop/tablet search -->
-      <div class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
-        <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
-        <input
-  type="text"
-  id="admin-search-mobile"
-  class="admin-search flex-1 outline-none text-[15px] placeholder:text-[#78909C]"
-  placeholder="What do you want to find?"
->
+          <div class="flex items-center gap-2 text-[#000000]/50">
+            <div class="leading-tight">
+              <p id="admin-name" class="text-[12px] font-bold text-[#000000]"></p>
+              <p id="admin-role" class="text-[10px]">Admin</p>
+            </div>
+
+            <div class="relative">
+              <button id="profile-menu-btn" type="button" aria-expanded="false" aria-label="Open profile menu">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+              </button>
+
+              <div id="profile-dropdown"
+                class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
+                <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
+                  <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
+                  <span>Log out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- MOBILE SEARCH -->
+      <div
+        class="admin-search sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
+        <ion-icon name="search" class="text-[18px]"></ion-icon>
+        <input type="text" id="admin-search-desktop"
+          class="admin-search flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold"
+          placeholder="What do you want to find?">
       </div>
 
-      <div class="ml-auto flex items-center gap-3">
 
-        <div id="profile-initials"
-     class="flex w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold">
-  AD
-</div>
+      <section class="p-4 sm:p-6 lg:p-8">
 
-<div class="flex items-center gap-2 text-[#000000]/50">
-  <div class="leading-tight">
-    <p id="admin-name" class="text-[12px] font-bold text-[#000000]">
-      Admin
-    </p>
-    <p id="admin-role" class="text-[10px]">Admin</p>
-  </div>
+        <section class="bg-white rounded-[16px] p-5 sm:p-7 lg:px-12 lg:py-7">
 
-  <div class="relative">
-    <button id="profile-menu-btn"
-            type="button"
-            aria-expanded="false"
-            aria-label="Open profile menu">
-      <ion-icon name="chevron-down-outline"></ion-icon>
-    </button>
+          <h1 class="text-[24px] md:text-[32px] font-bold text-[#085848]">Admin Dashboard</h1>
+          <p class="mt-1 text-[16px]">Hi David, welcome back to your dashboard</p>
 
-    <div id="profile-dropdown"
-         class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
-      <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
-        <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
-        <span>Log out</span>
-      </button>
-    </div>
-  </div>
-</div>
+          <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
-      </div>
+            <div class="rounded-[15px] bg-[#00C896]/20 px-6 py-5 flex items-center justify-between">
 
-    </header>
+              <div>
+                <p class="text-[16px]">Total Questions</p>
+                <h2 class="mt-2 text-[32px] font-bold"></h2>
+              </div>
 
+              <img src="/Images/total Q.png" alt="question">
 
-    <!-- MOBILE SEARCH -->
-    <div class="admin-search sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
-      <ion-icon name="search" class="text-[18px]"></ion-icon>
-      <input
-  type="text"
-  id="admin-search-desktop"
-  class="admin-search flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold"
-  placeholder="What do you want to find?"
->
-    </div>
-
-
-    <!-- CONTENT -->
-    <section class="p-4 sm:p-6 lg:p-8">
-
-      <!-- WELCOME / STATS -->
-      <section class="bg-white rounded-[16px] p-5 sm:p-7 lg:px-12 lg:py-7">
-
-        <h1 class="text-[24px] md:text-[32px] font-bold text-[#085848]">Admin Dashboard</h1>
-        <p class="mt-1 text-[16px]">Hi David, welcome back to your dashboard</p>
-
-        <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-          <!-- TOTAL QUESTIONS -->
-          <div class="rounded-[15px] bg-[#00C896]/20 px-6 py-5 flex items-center justify-between">
-
-            <div>
-              <p class="text-[16px]">Total Questions</p>
-              <h2 class="mt-2 text-[32px] font-bold">2,450</h2>
             </div>
 
-            <img src="/Images/total Q.png" alt="question">
 
-          </div>
+            <div class="rounded-[15px] bg-[#587DBD]/20 px-6 py-5 flex items-center justify-between">
 
+              <div>
+                <p class="text-[16px]">Published Items</p>
+                <h2 class="mt-2 text-[32px] font-bold"></h2>
+              </div>
 
-          <!-- PUBLISHED -->
+              <img src="/Images/publish.png" alt="published">
 
-          <div class="rounded-[15px] bg-[#587DBD]/20 px-6 py-5 flex items-center justify-between">
-
-            <div>
-              <p class="text-[16px]">Published Items</p>
-              <h2 class="mt-2 text-[32px] font-bold">1,850</h2>
             </div>
 
-            <img src="/Images/publish.png" alt="published">
+            <div class="rounded-[15px] bg-[#800080]/20 px-6 py-5 flex items-center justify-between">
 
-          </div>
+              <div>
+                <p class="text-[16px]">Active Subjects</p>
+                <h2 class="mt-2 text-[32px] font-bold"></h2>
+              </div>
 
-          <!-- SUBJECTS -->
+              <img src="/Images/subject.png" alt="published">
 
-             <div class="rounded-[15px] bg-[#800080]/20 px-6 py-5 flex items-center justify-between">
-
-            <div>
-              <p class="text-[16px]">Active Subjects</p>
-              <h2 class="mt-2 text-[32px] font-bold">50</h2>
             </div>
 
-            <img src="/Images/subject.png" alt="published">
+            <div class="rounded-[15px] bg-[#F8BD00]/20 px-6 py-5 flex items-center justify-between">
 
-          </div>
+              <div>
+                <p class="text-[16px]">Drafts</p>
+                <h2 class="mt-2 text-[32px] font-bold"></h2>
+              </div>
 
+              <img src="/Images/draft.png" alt="published">
 
-          <!-- draft -->
-
-          <div class="rounded-[15px] bg-[#F8BD00]/20 px-6 py-5 flex items-center justify-between">
-
-            <div>
-              <p class="text-[16px]">Drafts</p>
-              <h2 class="mt-2 text-[32px] font-bold">125</h2>
             </div>
 
-            <img src="/Images/draft.png" alt="published">
+          </div>
+
+        </section>
+
+        <section class="mt-6 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-5">
+
+          <div class="bg-white rounded-[16px] p-5 sm:p-6">
+
+            <div class="flex items-center justify-between gap-4">
+              <h2 class="text-[16px]">Distribution Analysis Across Exam Tiers</h2>
+              <button class="text-[16px] text-[#00c896]">Live Metrics</button>
+            </div>
+
+            <div id="exam-chart" class="flex h-64 items-end justify-around gap-4 px-2"></div>
 
           </div>
 
+          <div class="bg-white rounded-[16px] p-5 sm:p-6">
+
+            <h2 class="text-[16px] font-medium">Subjects</h2>
+
+            <div class="mt-7 flex justify-center">
+
+              <div class="w-full max-w-[280px] h-64">
+              </div>
+
+            </div>
+
+            <div id="subject-legend" class="mt-7 space-y-5">
+
+            </div>
+
           </div>
 
-      </section>
+        </section>
 
-      <!-- ANALYTICS -->
-      <section class="mt-6 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-5">
-
-        <!-- BAR CHART -->
-        <div class="bg-white rounded-[16px] p-5 sm:p-6">
+        <section class="mt-6 bg-white rounded-[16px] p-5 sm:p-6">
 
           <div class="flex items-center justify-between gap-4">
-            <h2 class="text-[16px]">Distribution Analysis Across Exam Tiers</h2>
-            <button class="text-[16px] text-[#00c896]">Live Metrics</button>
-          </div>
 
-          <div id="exam-chart" class="flex h-64 items-end justify-around gap-4 px-2"></div>
+            <h2 class="text-[13px] md:text-[16px]  whitespace-nowrap">Recent Feed Activity</h2>
 
-        </div>
-
-
-        <!-- SUBJECTS -->
-        <div class="bg-white rounded-[16px] p-5 sm:p-6">
-
-          <h2 class="text-[16px] font-medium">Subjects</h2>
-
-          <div class="mt-7 flex justify-center">
-
-            <div class="w-full max-w-[280px] h-64">
-            </div>
+            <a href="./questionbank.html"
+              class="text-[13px] md:text-[16px] text-[#00c896] flex items-center gap-2 whitespace-nowrap">
+              View entire bank
+              <ion-icon name="arrow-forward-outline" class="text-[14px] md:text-[18px]"></ion-icon>
+            </a>
 
           </div>
 
-          <div id="subject-legend" class="mt-7 space-y-5">
+
+          <div class="mt-6 overflow-auto md:overflow-x-hidden">
+
+            <table class="w-full border-separate border-spacing-y-2 text-[14px]">
+
+             <thead>
+  <tr class="text-[12px] text-black/40 text-left">
+    <th class="px-4 pb-1">ID</th>
+    <th class="px-4 pb-1">Category</th>
+    <th class="px-4 pb-1">Question Prompt</th>
+    <th class="px-4 pb-1">Status</th>
+  </tr>
+</thead>
+
+              <tbody id="recent-feed-body">
+
+              </tbody>
+            </table>
+
 
           </div>
 
-        </div>
+        </section>
 
       </section>
 
+    </main>
 
-      <!-- RECENT FEED -->
-      <section class="mt-6 bg-white rounded-[16px] p-5 sm:p-6">
+  </div>
 
-        <div class="flex items-center justify-between gap-4">
-
-          <h2 class="text-[13px] md:text-[16px]  whitespace-nowrap">Recent Feed Activity</h2>
-
-          <a href="./questionbank.html" class="text-[13px] md:text-[16px] text-[#00c896] flex items-center gap-2 whitespace-nowrap">
-            View entire bank
-            <ion-icon name="arrow-forward-outline" class="text-[14px] md:text-[18px]"></ion-icon>
-          </a>
-
-        </div>
-
-
-        <div class="mt-6 overflow-auto md:overflow-x-hidden">
-            <!-- TABLE HEAD -->
-
-  <table class="w-full border-separate border-spacing-y-2 text-[14px]">
-
-    <thead>
-      <tr class="text-[12px] text-black/40 text-left">
-        <th class="px-4 pb-1">ID</th>
-        <th class="px-4 pb-1">Category</th>
-        <th class="px-4 pb-1">Question Prompt</th>
-        <th class="px-4 pb-1">Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-      <!-- ROW 1 -->
-      <tr class="bg-[#FAFAFA]">
-
-        <td class="px-4 py-4 rounded-l-[12px]">
-          Q - 1042
-        </td>
-
-        <td class="px-4 py-4">
-          JAMB -
-          <span class="text-[#78909C]">Mathematics</span>
-        </td>
-
-        <td class="px-4 py-4">
-          <p>Calculus and Differentiation</p>
-          <p class="mt-1 text-[12px] text-[#78909C]">
-            Find the derivative of f(x) = 3x² + 5x...
-          </p>
-        </td>
-
-        <td class="px-4 py-4 rounded-r-[12px]">
-          <span class="px-4 py-2 bg-[#71dd8c]/30 text-[#34C759] rounded-full">
-            Published
-          </span>
-        </td>
-
-      </tr>
-
-
-      <!-- ROW 2 -->
-      <tr>
-
-        <td class="px-4 py-4">
-          Q - 1042
-        </td>
-
-        <td class="px-4 py-4">
-          JAMB -
-          <span class="text-[#78909C]">Mathematics</span>
-        </td>
-
-        <td class="px-4 py-4">
-          <p>Calculus and Differentiation</p>
-          <p class="mt-1 text-[12px] text-[#78909C]">
-            Find the derivative of f(x) = 3x² + 5x...
-          </p>
-        </td>
-
-        <td class="px-4 py-4">
-          <span class="px-4 py-2 bg-[#71dd8c]/30 text-[#34C759] rounded-full">
-            Published
-          </span>
-        </td>
-
-      </tr>
-
-
-
-      <!-- ROW 3 -->
-      <tr class="bg-[#FAFAFA]">
-
-        <td class="px-4 py-4 rounded-l-[12px]">
-          Q - 1042
-        </td>
-
-        <td class="px-4 py-4">
-          JAMB -
-          <span class="text-[#78909C]">Mathematics</span>
-        </td>
-
-        <td class="px-4 py-4">
-          <p>Calculus and Differentiation</p>
-          <p class="mt-1 text-[12px] text-[#78909C]">
-            Find the derivative of f(x) = 3x² + 5x...
-          </p>
-        </td>
-
-        <td class="px-4 py-4 rounded-r-[12px]">
-          <span class="px-4 py-2 bg-[#D9D9D9]/30 text-[#FFC83D] rounded-full">
-            Draft
-          </span>
-        </td>
-
-      </tr>
-
-      </tbody>
-      </table>
-
-
-        </div>
-
-      </section>
-
-    </section>
-
-  </main>
-
-</div>
-
-<script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>

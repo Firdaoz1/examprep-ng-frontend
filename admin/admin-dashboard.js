@@ -2,18 +2,10 @@ const ADMIN_DASHBOARD_API_BASE =
   "https://exam-prep-backend-git-staging-bidex327s-projects.vercel.app";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // =========================
-  // ELEMENTS
-  // =========================
-
   const examChart = document.getElementById("exam-chart");
   const subjectLegend = document.getElementById("subject-legend");
   const subjectChartBox = subjectLegend?.previousElementSibling;
-  const tableBody = document.querySelector("main tbody");
-
-  // =========================
-  // HELPERS
-  // =========================
+  const tableBody = document.getElementById("recent-feed-body");
 
   function getArray(...values) {
     return values.find(Array.isArray) || [];
@@ -32,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getText(...values) {
     const value = values.find(
-      (item) => item !== undefined && item !== null && item !== ""
+      (item) => item !== undefined && item !== null && item !== "",
     );
 
     if (value === undefined) return "—";
@@ -54,10 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
-  // =========================
-  // ADMIN PROFILE
-  // =========================
-
   function renderAdminProfile(admin = {}) {
     const nameElement = document.getElementById("admin-name");
     const roleElement = document.getElementById("admin-role");
@@ -78,17 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // =========================
-  // STATISTICS
-  // =========================
-
-  // =========================
-  // STATISTICS
-  // =========================
-
   function updateStat(label, value) {
     const statsContainer = document.querySelector(
-      "main > section > section > div.grid"
+      "main > section > section > div.grid",
     );
 
     if (!statsContainer) {
@@ -112,29 +92,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderStats(summary = {}) {
-    console.log("Summary received:", summary);
+function renderStats(summary = {}, subjectDistribution = []) {
+  console.log("Summary received:", summary);
 
-    if (summary.totalQuestions !== undefined) {
-      updateStat("Total Questions", summary.totalQuestions);
-    }
+  updateStat("Total Questions", summary.totalQuestions ?? 0);
+  updateStat("Published Items", summary.publishedItems ?? 0);
+  updateStat("Drafts", summary.drafts ?? 0);
 
-    if (summary.publishedItems !== undefined) {
-      updateStat("Published Items", summary.publishedItems);
-    }
+  const subjectNames = new Set(
+    subjectDistribution
+      .map((subject) => subject.subjectName ?? subject.name)
+      .filter(Boolean)
+      .map((name) => String(name).trim().toLowerCase())
+  );
 
-    if (summary.totalSubjects !== undefined) {
-      updateStat("Active Subjects", summary.totalSubjects);
-    }
+  const activeSubjects =
+    subjectNames.size > 0
+      ? subjectNames.size
+      : Number(summary.totalSubjects ?? 0);
 
-    if (summary.drafts !== undefined) {
-      updateStat("Drafts", summary.drafts);
-    }
-  }
-  // =========================
-  // DISTRIBUTION BAR CHART
-  // Questions grouped by exam tier
-  // =========================
+  updateStat("Active Subjects", activeSubjects);
+}
 
   function renderBarChart(questions, distribution = []) {
     if (!examChart) return;
@@ -149,14 +127,14 @@ document.addEventListener("DOMContentLoaded", () => {
           item.label,
           item.name,
           item.examName,
-          item.category
+          item.category,
         );
 
         counts[label] = getNumber(
           item.count,
           item.total,
           item.questionCount,
-          item.value
+          item.value,
         );
       });
     } else {
@@ -166,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
           question.examType,
           question.exam?.name,
           question.exam,
-          question.category
+          question.category,
         );
 
         counts[label] = (counts[label] || 0) + 1;
@@ -193,8 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const percentage = document.createElement("span");
       percentage.className = "text-xs font-semibold text-gray-600";
-      percentage.textContent =
-        `${total ? ((count / total) * 100).toFixed(1) : 0}%`;
+      percentage.textContent = `${total ? ((count / total) * 100).toFixed(1) : 0}%`;
 
       const bar = document.createElement("div");
       bar.className = "w-full max-w-12 rounded-t-md bg-[#00C896]";
@@ -212,11 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =========================
-  // SUBJECT DOUGHNUT CHART
-  // Percentage of questions per subject
-  // =========================
-
   function renderSubjectChart(questions, subjects = []) {
     if (!subjectLegend) return;
 
@@ -232,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
           subject.questionCount,
           subject.questionsCount,
           subject.count,
-          subject.total
+          subject.total,
         );
       });
     } else {
@@ -240,16 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = getText(
           question.subjectName,
           question.subject?.name,
-          question.subject
+          question.subject,
         );
 
         counts[name] = (counts[name] || 0) + 1;
       });
     }
 
-    const entries = Object.entries(counts).filter(
-      ([, count]) => count > 0
-    );
+    const entries = Object.entries(counts).filter(([, count]) => count > 0);
 
     const total = entries.reduce((sum, [, count]) => sum + count, 0);
 
@@ -261,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "#E33629",
       "#085848",
       "#91C9B5",
-      "#F08CB7"
+      "#F08CB7",
     ];
 
     if (subjectChartBox) {
@@ -282,8 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
         donut.className =
           "mx-auto flex h-48 w-48 items-center justify-center rounded-full";
 
-        donut.style.background =
-          `conic-gradient(${segments.join(", ")})`;
+        donut.style.background = `conic-gradient(${segments.join(", ")})`;
 
         const center = document.createElement("div");
 
@@ -336,81 +305,81 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // =========================
-  // RECENT FEED ACTIVITY
-  // ID, category, question, subject, topic, status
-  // =========================
-
   function renderRecentFeed(questions) {
-    if (!tableBody) return;
+  if (!tableBody) return;
 
-    tableBody.replaceChildren();
+  tableBody.replaceChildren();
 
-    if (!questions.length) {
-      const row = document.createElement("tr");
-      const cell = document.createElement("td");
+  if (!questions.length) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
 
-      cell.colSpan = 6;
-      cell.className = "px-4 py-8 text-center text-gray-400";
-      cell.textContent = "No recent question activity available.";
+    cell.colSpan = 4;
+    cell.className = "px-4 py-8 text-center text-gray-400";
+    cell.textContent = "No recent question activity available.";
 
-      row.appendChild(cell);
-      tableBody.appendChild(row);
-      return;
-    }
-
-    questions.slice(0, 10).forEach((question, index) => {
-      const row = document.createElement("tr");
-
-      row.className = index % 2 === 0 ? "bg-[#FAFAFA]" : "bg-white";
-
-      const values = [
-        getText(question._id, question.id, question.questionId),
-        getText(
-          question.category,
-          question.examType,
-          question.examName,
-          question.exam
-        ),
-        getText(
-          question.questionText,
-          question.question,
-          question.prompt,
-          question.title
-        ),
-        getText(question.subjectName, question.subject),
-        getText(question.topicName, question.topic),
-        getText(question.status, question.state)
-      ];
-
-      values.forEach((value, cellIndex) => {
-        const cell = document.createElement("td");
-        cell.className = "px-4 py-4";
-
-        if (cellIndex === 5) {
-          const badge = document.createElement("span");
-          const published = value.toLowerCase() === "published";
-
-          badge.className = published
-            ? "rounded-full bg-[#71dd8c]/30 px-3 py-2 text-[#34C759]"
-            : "rounded-full bg-[#F8BD00]/20 px-3 py-2 text-[#B8860B]";
-
-          badge.textContent = value;
-          cell.appendChild(badge);
-        } else {
-          cell.textContent = value;
-        }
-
-        row.appendChild(cell);
-      });
-
-      tableBody.appendChild(row);
-    });
+    row.appendChild(cell);
+    tableBody.appendChild(row);
+    return;
   }
 
-  // =========================
-  // ERROR DISPLAY
-  // =========================
+  questions.slice(0, 10).forEach((question, index) => {
+    const row = document.createElement("tr");
+    row.className = index % 2 === 0 ? "bg-[#FAFAFA]" : "bg-white";
+
+    const values = [
+  question.id ?? question._id ?? question.questionId ?? "—",
+
+  `${question.exam ?? question.examName ?? question.examCode ?? "—"} - ${
+    question.subject ?? question.subjectName ?? "—"
+  }`,
+
+  question.questionText ??
+    question.prompt ??
+    question.title ??
+    "—",
+
+  question.status ?? question.state ?? "Unknown"
+];
+
+    values.forEach((value, cellIndex) => {
+  const cell = document.createElement("td");
+  cell.className = "px-4 py-4";
+
+  if (cellIndex === 2) {
+    const prompt = document.createElement("div");
+
+    const topic = document.createElement("p");
+    topic.className = "font-medium text-gray-800";
+    topic.textContent = question.topic ?? question.topicName ?? "—";
+
+    const questionText = document.createElement("p");
+    questionText.className = "text-sm text-gray-600 mt-1";
+    questionText.textContent = String(value);
+
+    prompt.append(topic, questionText);
+    cell.appendChild(prompt);
+  } else if (cellIndex === 3) {
+    const badge = document.createElement("span");
+    const status = String(value);
+
+    badge.className =
+      status.toLowerCase() === "published"
+        ? "rounded-full bg-[#71dd8c]/30 px-3 py-2 text-[#34C759]"
+        : "rounded-full bg-[#F8BD00]/20 px-3 py-2 text-[#B8860B]";
+
+    badge.textContent = status;
+    cell.appendChild(badge);
+  } else {
+    cell.textContent = String(value);
+  }
+
+  row.appendChild(cell);
+});
+
+    tableBody.appendChild(row);
+  });
+}
 
   function showDashboardError(message) {
     if (examChart) {
@@ -436,12 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // =========================
-  // FETCH DASHBOARD
-  // =========================
-
   async function loadDashboard() {
-    // This must match the key saved by your admin login code.
     const token = sessionStorage.getItem("adminToken");
 
     if (!token) {
@@ -457,48 +421,50 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "GET",
           headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       const result = await response.json();
 
       if (response.status === 401) {
-        throw new Error("Admin session expired or unauthorized. Please log in again.");
+        throw new Error(
+          "Admin session expired or unauthorized. Please log in again.",
+        );
       }
 
       if (!response.ok || result.success === false) {
         throw new Error(
-          result.message || `Request failed (${response.status}).`
+          result.message || `Request failed (${response.status}).`,
         );
       }
 
-      // Actual response provided:
       // { admin: { fullName, id, role }, summary: { ... } }
       const data = result.data ?? result;
 
       renderAdminProfile(data.admin || {});
-      renderStats(data.summary || {});
 
-      // Use these arrays when the backend starts returning them.
+const subjectDistribution = getArray(
+  data.subjectDistribution,
+  data.subjectStats,
+  data.subjects
+);
+
+renderStats(data.summary || {}, subjectDistribution);
+
       const questions = getArray(
-        data.recentQuestions,
-        data.recentFeed,
-        data.questions,
-        data.items
-      );
+  data.recentActivity,
+  data.recentQuestions,
+  data.recentFeed,
+  data.questions,
+  data.items
+);
 
       const examDistribution = getArray(
         data.examTierDistribution,
         data.distributionByExam,
-        data.examDistribution
-      );
-
-      const subjectDistribution = getArray(
-        data.subjectDistribution,
-        data.subjectStats,
-        data.subjects
+        data.examDistribution,
       );
 
       renderBarChart(questions, examDistribution);

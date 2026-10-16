@@ -8,7 +8,6 @@ const loginMessage = document.getElementById("login-message");
 const googleMessage = document.getElementById("google-message");
 const googleButton = document.getElementById("google-login");
 
-// Show inline messages instead of alerts
 function showMessage(element, message, type = "error") {
   if (!element) return;
 
@@ -20,7 +19,6 @@ function showMessage(element, message, type = "error") {
   );
 }
 
-// Toggle password visibility
 const toggleButton = document.querySelector(".toggle-password");
 
 if (toggleButton) {
@@ -41,7 +39,6 @@ if (toggleButton) {
   });
 }
 
-// Admin login
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   showMessage(loginMessage, "");
@@ -69,9 +66,9 @@ loginForm.addEventListener("submit", async (event) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-         emailOrPhone: email,
-         password: password
-         }),
+        emailOrPhone: email,
+        password: password
+      }),
     });
 
     const result = await response.json().catch(() => ({}));
@@ -84,7 +81,6 @@ loginForm.addEventListener("submit", async (event) => {
       return;
     }
 
-    // Store the token only if this matches the backend's response.
     const token =
       result.data?.token ||
       result.token ||
@@ -100,7 +96,6 @@ loginForm.addEventListener("submit", async (event) => {
       "success"
     );
 
-    // Change this path if your admin dashboard is elsewhere.
     window.location.href = "./admin-dashboard.html";
   } catch (error) {
     console.error("Admin login error:", error);
@@ -115,10 +110,9 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
-// Google login
 googleButton.addEventListener("click", () => {
   showMessage(
     googleMessage,
-    "Google sign-in is not connected yet."
+    "Google sign-in is not connected yet.Please use login"
   );
 });

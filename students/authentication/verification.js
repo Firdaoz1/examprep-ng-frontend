@@ -2,6 +2,10 @@ const verificationTitle = document.getElementById("verification-title");
 const verificationMessage = document.getElementById("verification-message");
 const verificationLogin = document.getElementById("verification-login");
 
+verificationLogin.addEventListener("click",()=>{
+  window.location.href = "./login.html";
+});
+
 async function verifyEmail() {
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
