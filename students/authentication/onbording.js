@@ -11,7 +11,7 @@ roleCards.forEach((card) => {
     const role = card.dataset.role;
 
     if (role === "teacher") {
-      window.location.href = "";
+      window.location.href = "/teachers/comingsoon.html";
     }
 
     if (role === "student") {
@@ -19,7 +19,7 @@ roleCards.forEach((card) => {
     }
 
     if (role === "administrator") {
-      window.location.href = "/admin/admin-signup.html";
+      window.location.href = "/admin/admin-login.html";
     }
   });
 });

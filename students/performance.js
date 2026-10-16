@@ -228,7 +228,7 @@ function renderWeakTopics(topics) {
   }
 
   topics.forEach((topic) => {
-    const name = topic.name ?? topic.topicName ?? "Topic";
+    const name = topic.topic ?? topic.name ?? topic.topicName ?? "Topic";
 
     const subjectName = topic.subject ?? topic.subjectName ?? "";
 

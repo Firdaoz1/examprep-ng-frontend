@@ -117,27 +117,45 @@ async function loadActivities() {
       ];
 
       cells.forEach((value, index) => {
-        const cell = document.createElement("td");
+  const cell = document.createElement("td");
+  cell.className = "px-5 py-4";
 
-        cell.className = "px-5 py-4";
+  if (index === 0) {
+    cell.classList.add("px-6");
 
-        if (index === 0) {
-          cell.classList.add("px-6");
-        }
+    const subjectContainer = document.createElement("div");
+    subjectContainer.className = "flex items-center gap-3";
 
-        if (index === 3 && score !== null && score !== undefined) {
-          const numericScore = Number(score);
+    const subjectImage = document.createElement("div");
+    subjectImage.className =
+      "w-10 h-10 shrink-0 rounded-full bg-[#CEF4DA] text-[#085848] flex items-center justify-center font-bold text-[16px]";
 
-          cell.classList.add(
-            numericScore >= 50 ? "text-[#34C759]" : "text-red-500",
-          );
-        }
+    subjectImage.textContent =
+      String(subject).trim().charAt(0).toUpperCase() || "?";
 
-        cell.textContent = String(value);
-        row.appendChild(cell);
-      });
+    const subjectName = document.createElement("span");
+    subjectName.className = "text-[#1E1E1E] font-semibold";
+    subjectName.textContent = String(subject);
 
-      activityList.appendChild(row);
+    subjectContainer.appendChild(subjectImage);
+    subjectContainer.appendChild(subjectName);
+    cell.appendChild(subjectContainer);
+  } else {
+    cell.textContent = String(value);
+  }
+
+  if (index === 3 && score !== null && score !== undefined) {
+    const numericScore = Number(score);
+
+    cell.classList.add(
+      numericScore >= 50 ? "text-[#34C759]" : "text-red-500"
+    );
+  }
+
+  row.appendChild(cell);
+});
+
+activityList.appendChild(row);
     });
   } catch (error) {
     activityList.innerHTML = `

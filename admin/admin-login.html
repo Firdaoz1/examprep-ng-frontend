@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/authentication/student-authentication.js"></script>
+  <script src="./admin-login.js" defer></script>
 
 </head>
 
@@ -34,39 +34,42 @@
       </p>
     </div>
 
+    <p id="login-message" class="mt-3 text-sm text-center"
+   role="status" aria-live="polite"></p>
+
     <form id="login-form" class="mt-8">
 
       <!-- EMAIL -->
       <div class="mb-5">
-        <label for="name" class="block mb-2 text-[16px] text-black">
+        <label for="email" class="block mb-2 text-[16px] text-black">
           Email
         </label>
 
         <div class="flex items-center gap-2 border border-[#d8e0de] p-4 text-[#78909C] rounded-[7px] text-[14px]">
           <ion-icon name="mail-outline" class="text-[18px]"></ion-icon>
-          <input id="name" type="text" placeholder="Enter your full email" required class="w-full outline-none placeholder:text-[#78909C]">
+          <input id="email" type="email" placeholder="Enter your full email" required class="w-full outline-none placeholder:text-[#78909C]">
         </div>
       </div>
 
       <!-- PASSWORD -->
       <div class="mb-5">
-        <label for="name" class="block mb-2 text-[16px] text-black">
+        <label for="password" class="block mb-2 text-[16px] text-black">
           Password
         </label>
 
         <div class="flex items-center gap-2 border border-[#d8e0de] p-4 text-[#78909C] rounded-[7px] text-[14px]">
           <ion-icon name="lock-closed-outline" class="text-[18px]"></ion-icon>
-          <input id="name" type="text" placeholder="Enter your password" required class="w-full outline-none placeholder:text-[#78909C]">
+          <input id="password" type="password" placeholder="Enter your password" required class="w-full outline-none placeholder:text-[#78909C]">
 
           <button type="button" class="toggle-password flex items-center justify-center shrink-0">
 
-            <ion-icon name="eye-off" class="toggle-password text-2xl text-black"></ion-icon>
+            <ion-icon name="eye-off" class="text-2xl text-black"></ion-icon>
             </button>
         </div>
       </div>
 
       <!-- REMEMBER / FORGOT -->
-      <div class="flex items-center justify-between gap-4">
+      <!-- <div class="flex items-center justify-between gap-4">
 
         <div class="flex items-center gap-2">
           <input type="checkbox" class="accent-[#085848]">
@@ -77,7 +80,7 @@
           Forgot Password?
         </a>
 
-      </div>
+      </div> -->
 
       <!-- LOGIN -->
       <button type="submit" class="w-full p-4 mt-7 bg-[#085848] rounded-[6px] text-white text-[16px]">
@@ -107,6 +110,9 @@
 
     </div>
 
+    <p id="google-message" class="mt-3 text-sm text-center"
+   role="status" aria-live="polite"></p>
+   
     <!-- SIGN UP -->
     <p class="mt-7 text-center text-[14px] text-[#78909C]">
       Don't have an account?

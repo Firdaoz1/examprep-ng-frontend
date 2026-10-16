@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./admin.js"></script>
+  <script src="./admin-dashboard.js"></script>
 </head>
 
 <body class="bg-[#F8F8F8] text-['Inter']">
@@ -17,7 +19,8 @@
 <div class="min-h-screen flex">
 
   <!-- SIDEBAR -->
-  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+    
 
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -32,7 +35,7 @@
 
     <nav class="mt-10 space-y-3">
 
-      <a href="./dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
+      <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
         <ion-icon name="home" class="text-[22px]"></ion-icon>
         <span>Dashboard</span>
       </a>
@@ -61,39 +64,49 @@
         <ion-icon name="menu"></ion-icon>
       </button>
 
-      <div class="hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
+      <!-- desktop/tablet search -->
+      <div class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
         <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
-        <input type="text" placeholder="What do you want to find?" class="flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold">
+        <input
+  type="text"
+  id="admin-search-mobile"
+  class="admin-search flex-1 outline-none text-[15px] placeholder:text-[#78909C]"
+  placeholder="What do you want to find?"
+>
       </div>
 
       <div class="ml-auto flex items-center gap-3">
 
-        <button type="button" class="relative w-8 h-8 flex items-center justify-center">
-          <ion-icon name="notifications-outline" class="text-[18px] md:text-[26px]"></ion-icon>
-          <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full hidden"></span>
-        </button>
+        <div id="profile-initials"
+     class="flex w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold">
+  AD
+</div>
 
-        <div id="profile-initials" class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
-            DB
-          </div>
+<div class="flex items-center gap-2 text-[#000000]/50">
+  <div class="leading-tight">
+    <p id="admin-name" class="text-[12px] font-bold text-[#000000]">
+      Admin
+    </p>
+    <p id="admin-role" class="text-[10px]">Admin</p>
+  </div>
 
-        <div class="flex items-center gap-2 text-[#000000]/50">
-          <div class="leading-tight">
-            <p class="text-[12px] font-bold text-[#000000]">David Benjamin</p>
-          <p class="text-[10px]">Admin</p>
-          </div>
-          
-          <div class="relative">
-             
-            <button>
-              <ion-icon name="chevron-down-outline"></ion-icon>
-            </button>
-            <div class="hidden text-[#E33629] text-[16px] flex items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8">
-        <ion-icon name="log-out-outline" class="text-[20px] scale-x-[-1]"></ion-icon>
-        <p class="whitespace-nowrap">Log out</p>
-      </div>
-          </div>
-        </div>
+  <div class="relative">
+    <button id="profile-menu-btn"
+            type="button"
+            aria-expanded="false"
+            aria-label="Open profile menu">
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </button>
+
+    <div id="profile-dropdown"
+         class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
+      <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
+        <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
+        <span>Log out</span>
+      </button>
+    </div>
+  </div>
+</div>
 
       </div>
 
@@ -101,9 +114,14 @@
 
 
     <!-- MOBILE SEARCH -->
-    <div class="sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
+    <div class="admin-search sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
       <ion-icon name="search" class="text-[18px]"></ion-icon>
-      <input type="text" placeholder="What do you want to find?" class="flex-1 outline-none text-[15px] placeholder:text-[#78909C]">
+      <input
+  type="text"
+  id="admin-search-desktop"
+  class="admin-search flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold"
+  placeholder="What do you want to find?"
+>
     </div>
 
 

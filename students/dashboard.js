@@ -513,13 +513,11 @@ function displayWeakTopics(topics, container) {
     topicElement.className = "flex gap-3";
 
     topicElement.innerHTML = `
-      <div>
-        <img
-          src="/Images/Math.png"
-          alt=""
-          class="h-10 w-10 shrink-0"
-        >
-      </div>
+  <div
+    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D9F5D8] text-base font-bold text-[#085848]"
+  >
+    <span class="topic-initial"></span>
+  </div>
 
       <div class="min-w-0 flex-1">
         <div class="flex items-start justify-between gap-2">
@@ -545,8 +543,14 @@ function displayWeakTopics(topics, container) {
       </div>
     `;
 
-    topicElement.querySelector(".topic-name").textContent =
-      topic.topic ?? "Untitled topic";
+    const topicName = topic.topic ?? "Untitled topic";
+
+    topicElement.querySelector(".topic-name").textContent = topicName;
+
+    topicElement.querySelector(".topic-initial").textContent = topicName
+      .trim()
+      .charAt(0)
+      .toUpperCase();
 
     topicElement.querySelector(".topic-accuracy").textContent = hasAccuracy
       ? `${safeAccuracy}% accuracy`

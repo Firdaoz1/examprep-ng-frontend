@@ -51,6 +51,10 @@ async function loadCardProgress() {
 
     const progress = result.data?.progress ?? {};
 
+    if (overallAccuracy && progress.accuracy != null) {
+  overallAccuracy.textContent = `${progress.accuracy}%`;
+}
+
     const cardProgress = [
       {
         selector: ".performance-change",

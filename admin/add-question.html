@@ -1,386 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ExamPrep NG - Admin Dashboard</title>
+  <title>ExamPrep NG - Add New Question</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./admin.js" defer></script>
+  <script src="./add-question.js" defer></script>
 </head>
 
-<body class="bg-[#F8F8F8] text-['Inter']">
+<body class="bg-[#F8F8F8] font-['Inter']">
 
-<div class="min-h-screen flex">
+  <div class="min-h-screen flex">
 
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 h-fit md:h-screen w-full  md:w-[250px] bg-[#003028] text-white px-5 py-7 -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col">
 
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
-        <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
-      </div>
-
-      <button id="sidebar-close" type="button" class="lg:hidden text-[28px]">
-        <ion-icon name="close-outline"></ion-icon>
-      </button>
-    </div>
-
-    <nav class="mt-10 space-y-3">
-
-      <a href="./dashboard.html" class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
-        <ion-icon name="home" class="text-[22px]"></ion-icon>
-        <span>Dashboard</span>
-      </a>
-
-      <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="albums" class="text-[22px]"></ion-icon>
-        <span>Questions Bank</span>
-      </a>
-
-      <a href="./add-question.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
-        <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
-        <span>Add Question</span>
-      </a>
-
-    </nav>
-
-  </aside>
-
-  <!-- MAIN -->
-  <main class="w-full min-h-screen lg:ml-[250px]">
-
-    <!-- HEADER -->
-    <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
-
-      <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-
-      <div class="hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
-        <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
-        <input type="text" placeholder="What do you want to find?" class="flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold">
-      </div>
-
-      <div class="ml-auto flex items-center gap-3">
-
-        <button type="button" class="relative w-8 h-8 flex items-center justify-center">
-          <ion-icon name="notifications-outline" class="text-[18px] md:text-[26px]"></ion-icon>
-          <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full hidden"></span>
-        </button>
-
-        <div id="profile-initials" class="hidden w-10 h-10 rounded-full bg-[#003028] text-white flex items-center justify-center text-[16px] font-bold md:flex">
-            DB
-          </div>
-
-        <div class="flex items-center gap-2 text-[#000000]/50">
-          <div class="leading-tight">
-            <p class="text-[12px] font-bold text-[#000000]">David Benjamin</p>
-          <p class="text-[10px]">Admin</p>
-          </div>
-          
-          <div class="relative">
-             
-            <button>
-              <ion-icon name="chevron-down-outline"></ion-icon>
-            </button>
-            <div class="hidden text-[#E33629] text-[16px] flex items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8">
-        <ion-icon name="log-out-outline" class="text-[20px] scale-x-[-1]"></ion-icon>
-        <p class="whitespace-nowrap">Log out</p>
-      </div>
-          </div>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="/Images/logo.png" alt="ExamPrep NG logo" class="w-8 h-8 object-contain">
+          <span class="text-[20px] font-bold whitespace-nowrap">ExamPrep NG</span>
         </div>
 
+        <button id="sidebar-close" type="button" class="lg:hidden text-[28px]" aria-label="Close sidebar">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
       </div>
 
-    </header>
+      <nav class="mt-10 space-y-3">
+        <a href="./admin-dashboard.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="home" class="text-[22px]"></ion-icon>
+          <span>Dashboard</span>
+        </a>
 
+        <a href="./questionbank.html" class="flex items-center gap-3 p-4 rounded-lg text-[16px] font-bold">
+          <ion-icon name="albums" class="text-[22px]"></ion-icon>
+          <span>Questions Bank</span>
+        </a>
 
-    <!-- MOBILE SEARCH -->
-    <div class="sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
-      <ion-icon name="search" class="text-[18px]"></ion-icon>
-      <input type="text" placeholder="What do you want to find?" class="flex-1 outline-none text-[15px] placeholder:text-[#78909C]">
-    </div>
+        <a href="./add-question.html" aria-current="page"
+          class="flex items-center gap-3 p-4 rounded-lg bg-[#CEF4DA] text-[#003028] text-[16px] font-bold">
+          <ion-icon name="add-circle" class="text-[22px]"></ion-icon>
+          <span>Add Question</span>
+        </a>
+      </nav>
 
+    </aside>
 
+    <!-- MAIN -->
+    <main class="w-full min-h-screen lg:ml-[250px]">
 
-    <!-- CONTENT -->
-    <section class="p-4 sm:p-6 lg:p-8">
+      <!-- HEADER -->
+      <header class="p-4 sm:px-6 lg:px-8 py-4 flex items-center gap-4">
 
-      <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+        <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center text-[30px] pl-2"
+          aria-label="Open sidebar">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <!-- DESKTOP/TABLET SEARCH -->
+        <div
+          class="admin-search hidden sm:flex w-full lg:max-w-[500px] md:max-w-[400px] border border-[#D8E0DE] rounded-[12px] bg-white p-4 items-center gap-3">
+          <ion-icon name="search" class="text-[#000000]/50 text-[16px]"></ion-icon>
+          <input type="search" id="admin-search-desktop"
+            class="flex-1 min-w-0 outline-none text-[15px] placeholder:text-[#78909C]"
+            placeholder="What do you want to find?" aria-label="Search admin dashboard">
+        </div>
+
+        <div class="ml-auto flex items-center gap-3">
+
+          <div id="profile-initials"
+            class="flex w-10 h-10 rounded-full bg-[#003028] text-white items-center justify-center text-[16px] font-bold">
+            AD
+          </div>
+
+          <div class="flex items-center gap-2 text-[#000000]/50">
+            <div class="leading-tight">
+              <p id="admin-name" class="text-[12px] font-bold text-[#000000]">Admin</p>
+              <p id="admin-role" class="text-[10px]">Admin</p>
+            </div>
+
+            <div class="relative">
+              <button id="profile-menu-btn" type="button" aria-expanded="false" aria-label="Open profile menu">
+                <ion-icon name="chevron-down-outline"></ion-icon>
+              </button>
+
+              <div id="profile-dropdown"
+                class="hidden text-[#E33629] text-[16px] items-center gap-2 bg-white shadow p-3 rounded-2xl absolute -right-4 top-8 z-50">
+                <button id="logout-btn" type="button" class="flex items-center gap-2 whitespace-nowrap">
+                  <ion-icon name="log-out-outline" class="text-[20px]"></ion-icon>
+                  <span>Log out</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- MOBILE SEARCH -->
+      <div
+        class="admin-search sm:hidden mx-4 mt-4 border border-[#D8E0DE] rounded-[10px] bg-white p-4 flex items-center gap-3">
+        <ion-icon name="search" class="text-[18px]"></ion-icon>
+        <input type="search" id="admin-search-mobile"
+          class="flex-1 min-w-0 outline-none text-[16px] placeholder:text-[#000000]/50 font-bold"
+          placeholder="What do you want to find?" aria-label="Search admin dashboard">
+      </div>
+
+      <!-- CONTENT -->
+      <section class="p-4 sm:p-6 lg:p-8">
+
         <div>
-        <h1 class="text-[32px] font-bold text-black">Add New Question</h1>
-        <p class="mt-1 text-[16px] text-[#78909C]">Create and add a new question to the question bank. Fill in the details below.</p>
-      </div>
-
-      <div class="ml-auto flex flex-col justify-center">
-        <button>
-          <ion-icon name="cloud-upload-outline" class="text-[45px]"></ion-icon>
-        </button>
-        <p class="text-16px">upload Icon</p>
-      </div>
-      </div>
-
-
-      <div class="mt-6 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(300px,1fr)] gap-4 items-start">
-
-        <!-- FORM -->
-        <form id="question-form" class="bg-white rounded-[14px] p-4 sm:p-5 lg:p-6">
-
-          <!-- 1 -->
-          <section>
-            <h2 class="text-[18px] font-semibold text-black">1. Question Details</h2>
-
-            <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-              <div>
-                <label for="exam-category" class="block mb-2 text-[16px] text-black">Exam Category</label>
-                <input type="text" id="exam-category" placeholder="JAMB" class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
-              </div>
-
-              <div>
-                <label for="exam-category" class="block mb-2 text-[16px] text-black">Subject</label>
-                <input type="text" id="exam-category" placeholder="Mathematics" class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
-              </div>
-
-              <div>
-                <label for="exam-category" class="block mb-2 text-[16px] text-black">Topic</label>
-                <input type="text" id="exam-category" placeholder="Trigonometry" class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
-              </div>
-
-              <div>
-                <label for="exam-category" class="block mb-2 text-[16px] text-black">Question Type</label>
-                <input type="text" id="exam-category" placeholder="Multiple Choice" class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
-              </div>
-
-            </div>
-          </section>
-
-
-          <!-- 2 -->
-          <section class="mt-7">
-            <h2 class="text-[18px] font-semibold text-black">2. Question</h2>
-
-            <label for="question" class="block mt-4 mb-2 text-[16px] text-black">Question</label>
-
-            <textarea id="question" rows="4" placeholder="Explain what the specific selection is the correct answer..." class="w-full resize-none p-3 border border-[#D9D9D9] rounded-[7px] outline-none text-[14px] text-[#78909C]">Find the derivative of f(x) = 3x² + 5x - 2</textarea>
-          </section>
-
-
-          <!-- 3 -->
-          <section class="mt-7">
-
-            <h2 class="text-[18px] font-semibold text-black">3. Answer Options</h2>
-
-            <div class="mt-4 p-3 border border-[#D9D9D9] rounded-[8px] space-y-2">
-
-              <!-- A -->
-              <div class="answer-row flex items-center gap-3">
-                <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">A</span>
-
-                <div class="flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
-                  <input id="answer-a" type="text" value="5" class="flex-1 min-w-0 outline-none text-[14px]">
-
-                  <button type="button" class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full" data-answer="A"></button>
-                </div>
-              </div>
-
-
-              <!-- B -->
-              <div class="answer-row flex items-center gap-3">
-                <span class="answer-letter w-7 h-7 rounded-full bg-[#085848] text-white flex items-center justify-center text-[14px] shrink-0">B</span>
-
-                <div class="answer-box flex-1 h-full border border-[#085848] bg-[#085848]/30 rounded-[6px] flex items-center p-3">
-                  <input id="answer-b" type="text" value="10" class="flex-1 min-w-0 outline-none bg-transparent text-[14px] text-[#085848]">
-
-                  <button type="button" class="correct-answer-btn selected w-4 h-4 border-[4px] border-[#085848] bg-white rounded-full" data-answer="B"></button>
-                </div>
-              </div>
-
-
-              <!-- C -->
-              <div class="answer-row flex items-center gap-3">
-                <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">C</span>
-
-                <div class="flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
-                  <input id="answer-a" type="text" value="17" class="flex-1 min-w-0 outline-none text-[14px]">
-
-                  <button type="button" class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full" data-answer="A"></button>
-                </div>
-              </div>
-
-
-              <!-- D -->
-              <div class="answer-row flex items-center gap-3">
-                <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">D</span>
-
-                <div class="flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
-                  <input id="answer-a" type="text" value="33" class="flex-1 min-w-0 outline-none text-[14px]">
-
-                  <button type="button" class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full" data-answer="A"></button>
-                </div>
-              </div>
-
-            </div>
-
-
-            <div class="mt-4 flex items-center gap-3">
-
-              <ion-icon name="checkmark-outline" class="w-4 h-4 bg-[#085848] text-white rounded-full flex items-center justify-center text-[9px]"></ion-icon>
-
-              <p class="text-[14px] text-[#085848]">Correct Answer</p>
-
-              <p id="correct-answer-display" class="px-3 py-2 border border-[#D9D9D9] rounded-[5px] text-[14px]">
-                B - 10
-              </p>
-
-            </div>
-
-          </section>
-
-
-          <!-- 4 -->
-          <section class="mt-7">
-
-            <h2 class="text-[18px] font-semibold text-black">4. Explanation</h2>
-
-            <textarea id="explanation" rows="5" placeholder="Explain why the specific selection is the correct answer..." class="mt-4 w-full resize-none p-3 border border-[#D9D9D9] rounded-[7px] outline-none text-[14px] placeholder:text-[#78909C]"></textarea>
-
-          </section>
-
-
-          <!-- BUTTONS -->
-          <div class="hidden mt-7 flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-between gap-3 lg:flex">
-
-            <button type="button" class="p-3 border border-[#D9D9D9] rounded-[6px] bg-white text-[14px]">
-              Save as Draft
-            </button>
-
-            <button type="submit" class="p-3 bg-[#085848] text-white rounded-[6px] text-[14px]">
-              Publish Question
-            </button>
-
-          </div>
-
-        </form>
-
-
-        <!-- PREVIEW -->
-        <div class="bg-white border border-[#D9D9D9] rounded-xl p-4 sm:p-5 lg:sticky lg:top-5">
-
-          <h2 class="text-[18px] font-semibold text-black">Question Preview</h2>
-
-          <p id="preview-question" class="mt-3 text-[14px] text-black leading-5">
-            Find the derivative of f(x) = 3x² + 5x - 2
+          <h1 class="text-[32px] font-bold text-black">Add New Question</h1>
+          <p class="mt-1 text-[16px] text-[#78909C]">
+            Create and add a new question to the question bank. Fill in the details below.
           </p>
-
-
-          <div id="preview-options" class="mt-5 space-y-3">
-
-            <div class="preview-option flex items-center gap-3">
-              <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">A</span>
-              <span id="preview-a" class="text-[14px]">5</span>
-            </div>
-
-            <div class="preview-option selected-preview p-2 bg-[#085848]/30 border border-[#085848] rounded-[7px] flex items-center gap-3" data-answer="B">
-              <span class="w-7 h-7 rounded-full bg-[#085848] text-white flex items-center justify-center text-[14px]">B</span>
-              <span id="preview-b" class="text-[14px] text-[#085848]">10</span>
-            </div>
-
-            <div class="preview-option flex items-center gap-3">
-              <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">C</span>
-              <span id="preview-c" class="text-[14px]">17</span>
-            </div>
-
-            <div class="preview-option flex items-center gap-3">
-              <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">D</span>
-              <span id="preview-d" class="text-[14px]">33</span>
-            </div>
-
-          </div>
-
-
-          <!-- EXPLANATION -->
-          <div class="mt-6 border border-[#D9D9D9] rounded-[7px] p-4">
-
-            <h3 class="text-[14px] font-semibold text-[#085848]">Explanation</h3>
-
-            <p id="preview-explanation" class="mt-4 text-[14px] leading-4 text-[#78909C]">
-              Explain why the specific selection is the correct answer...
-            </p>
-
-          </div>
-
-
-          <!-- META -->
-          <div class="mt-8 space-y-5">
-
-            <div class="flex items-center gap-3">
-    
-                <img src="/Images/category.png" alt="category" class="w-8 h-8">
-
-              <div>
-                <p class="text-[12px]">Category</p>
-                <p id="preview-category" class="mt-1 text-[16px] text-black">JAMB</p>
-              </div>
-            </div>
-
-
-            <div class="flex items-center gap-3">
-              <img src="/Images/subjectt.png" alt="subject" class="w-8 h-8">
-
-              <div>
-                <p class="text-[12px]">Subject</p>
-                <p id="preview-subject" class="mt-1 text-[16px] text-black">Mathematics</p>
-              </div>
-            </div>
-
-
-            <div class="flex items-center gap-3">
-              <img src="/Images/topicc.png" alt="topic" class="w-8 h-8">
-
-              <div>
-                <p class="text-[12px]">Topics</p>
-                <p id="preview-topic" class="mt-1 text-[16px] text-black">Calculus and Differentiation</p>
-              </div>
-            </div>
-
-
-            <div class="flex items-center gap-3">
-              <img src="/Images/multiple.png" alt="multiple" class="w-8 h-8">
-
-              <div>
-                <p class="text-[12px]]">Question Type</p>
-                <p id="preview-type" class="mt-1 text-[16px] text-black">Multiple Choice</p>
-              </div>
-            </div>
-          </div>
-          <!-- BUTTONS -->
-          <div class="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-between gap-3 lg:hidden">
-
-            <button type="button" class="p-3 border border-[#D9D9D9] rounded-[6px] bg-white text-[14px]">
-              Save as Draft
-            </button>
-
-            <button type="submit" class="p-3 bg-[#085848] text-white rounded-[6px] text-[14px]">
-              Publish Question
-            </button>
-
-          </div>
-
         </div>
-      </div>
-    </section>
 
-  </main>
 
+        <div class="mt-6 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(300px,1fr)] gap-4 items-start">
+
+          <!-- FORM -->
+          <form id="question-form" class="bg-white rounded-[14px] p-4 sm:p-5 lg:p-6">
+
+            <!-- 1. QUESTION DETAILS -->
+            <section>
+              <h2 class="text-[18px] font-semibold text-black">1. Question Details</h2>
+
+              <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                <div>
+                  <label for="exam-category" class="block mb-2 text-[16px] text-black">Exam Category</label>
+                  <input type="text" id="exam-category" name="exam" list="exam-options" placeholder="JAMB" required
+                    class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
+
+                </div>
+
+                <div>
+                  <label for="subject" class="block mb-2 text-[16px] text-black">Subject</label>
+                  <input type="text" id="subject" name="subject" list="subject-options" placeholder="Mathematics"
+                    required
+                    class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
+
+                  <datalist id="subject-options">
+                    <option value="Mathematics"></option>
+                    <option value="English Language"></option>
+                    <option value="Physics"></option>
+                    <option value="Chemistry"></option>
+                    <option value="Biology"></option>
+                  </datalist>
+                </div>
+
+                <div>
+                  <label for="topic" class="block mb-2 text-[16px] text-black">Topic</label>
+                  <input type="text" id="topic" name="topic" placeholder="Trigonometry" required
+                    class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
+                </div>
+
+                <div>
+                  <label for="question-type" class="block mb-2 text-[16px] text-black">Question Type</label>
+                  <input type="text" id="question-type" name="qoestion-type" list="question-type"
+                    placeholder="multiple-choce" required
+                    class="w-full p-3 border border-[#D9D9D9] rounded-[7px] bg-white outline-none text-[14px] placeholder:text-black">
+                </div>
+
+              </div>
+            </section>
+
+            <!-- 2. QUESTION -->
+            <section class="mt-7">
+              <h2 class="text-[18px] font-semibold text-black">2. Question</h2>
+
+              <label for="question" class="block mt-4 mb-2 text-[16px] text-black">Question</label>
+
+              <textarea id="question" name="question" rows="4" required placeholder="Enter the question here..."
+                class="w-full resize-none p-3 border border-[#D9D9D9] rounded-[7px] outline-none text-[14px] text-black placeholder:text-[#78909C]"></textarea>
+            </section>
+
+            <!-- 3. ANSWER OPTIONS -->
+            <section class="mt-7">
+              <h2 class="text-[18px] font-semibold text-black">3. Answer Options</h2>
+
+              <div class="mt-4 p-3 border border-[#D9D9D9] rounded-[8px] space-y-2">
+
+                <!-- OPTION A -->
+                <div class="answer-row flex items-center gap-3">
+                  <label for="answer-a"
+                    class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">
+                    A
+                  </label>
+
+                  <div class="answer-box flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
+                    <input id="answer-a" name="optionA" type="text" required
+                      class="flex-1 min-w-0 outline-none text-[14px]" aria-label="Option A">
+
+                    <button type="button"
+                      class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full shrink-0" data-answer="A"
+                      aria-label="Mark option A as correct" aria-pressed="false"></button>
+                  </div>
+                </div>
+
+                <!-- OPTION B -->
+                <!-- OPTION B -->
+<div class="answer-row flex items-center gap-3">
+  <label
+    for="answer-b"
+    class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0"
+  >
+    B
+  </label>
+
+  <div class="answer-box flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3 bg-white">
+    <input
+      id="answer-b"
+      name="optionB"
+      type="text"
+      required
+      class="flex-1 min-w-0 outline-none bg-transparent text-black text-[14px]"
+      aria-label="Option B"
+    >
+
+    <button
+      type="button"
+      class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full shrink-0 bg-white"
+      data-answer="B"
+      aria-label="Mark option B as correct"
+      aria-pressed="false"
+    ></button>
+  </div>
 </div>
 
-<script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+                <!-- OPTION C -->
+                <div class="answer-row flex items-center gap-3">
+                  <label for="answer-c"
+                    class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">
+                    C
+                  </label>
+
+                  <div class="answer-box flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
+                    <input id="answer-c" name="optionC" type="text" required
+                      class="flex-1 min-w-0 outline-none text-[14px]" aria-label="Option C">
+
+                    <button type="button"
+                      class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full shrink-0" data-answer="C"
+                      aria-label="Mark option C as correct" aria-pressed="false"></button>
+                  </div>
+                </div>
+
+                <!-- OPTION D -->
+                <div class="answer-row flex items-center gap-3">
+                  <label for="answer-d"
+                    class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px] shrink-0">
+                    D
+                  </label>
+
+                  <div class="answer-box flex-1 border border-[#D9D9D9] rounded-[6px] flex items-center p-3">
+                    <input id="answer-d" name="optionD" type="text" required
+                      class="flex-1 min-w-0 outline-none text-[14px]" aria-label="Option D">
+
+                    <button type="button"
+                      class="correct-answer-btn w-4 h-4 border border-[#D9D9D9] rounded-full shrink-0" data-answer="D"
+                      aria-label="Mark option D as correct" aria-pressed="false"></button>
+                  </div>
+                </div>
+
+              </div>
+
+             <div class="mt-4 flex items-center gap-3">
+  <ion-icon name="checkmark-outline"
+    class="w-4 h-4 bg-[#085848] text-white rounded-full flex items-center justify-center text-[9px]">
+  </ion-icon>
+
+  <p class="text-[14px] text-[#085848]">Correct Answer</p>
+
+  <p id="correct-answer-display"
+    class="px-3 py-2 border border-[#D9D9D9] rounded-[5px] text-[14px]"
+    aria-live="polite">
+    No answer selected
+  </p>
+</div>
+
+<input type="hidden" id="correct-answer" name="correctAnswer" value="">
+            </section>
+
+            <!-- 4. EXPLANATION -->
+            <section class="mt-7">
+              <h2 class="text-[18px] font-semibold text-black">4. Explanation</h2>
+
+              <textarea id="explanation" name="explanation" rows="5"
+                placeholder="Explain why the selected answer is correct..." required
+                class="mt-4 w-full resize-none p-3 border border-[#D9D9D9] rounded-[7px] outline-none text-[14px] placeholder:text-[#78909C]"></textarea>
+            </section>
+
+            <!-- FORM FEEDBACK -->
+            <p id="form-message" class="hidden mt-4 text-[14px]" role="status" aria-live="polite"></p>
+
+            <!-- DESKTOP BUTTONS -->
+            <div
+              class="hidden mt-7 lg:flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-between gap-3">
+              <button id="save-draft-btn" type="button"
+                class="p-3 border border-[#D9D9D9] rounded-[6px] bg-white text-[14px]">
+                Save as Draft
+              </button>
+
+              <button id="publish-question-btn" type="submit"
+                class="p-3 bg-[#085848] text-white rounded-[6px] text-[14px]">
+                Publish Question
+              </button>
+            </div>
+
+          </form>
+
+          <!-- QUESTION PREVIEW -->
+          <div class="bg-white border border-[#D9D9D9] rounded-xl p-4 sm:p-5 lg:sticky lg:top-5">
+
+            <h2 class="text-[18px] font-semibold text-black">Question Preview</h2>
+
+            <p id="preview-question" class="mt-3 text-[14px] text-black leading-5">
+              Your question will appear here.
+            </p>
+
+            <div id="preview-options" class="mt-5 space-y-3">
+
+              <div id="preview-options" class="mt-5 space-y-3">
+  <div class="preview-option flex items-center gap-3" data-answer="A">
+    <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">A</span>
+    <span id="preview-a" class="text-[14px]">Option A</span>
+  </div>
+
+  <div class="preview-option flex items-center gap-3" data-answer="B">
+    <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">B</span>
+    <span id="preview-b" class="text-[14px]">Option B</span>
+  </div>
+
+  <div class="preview-option flex items-center gap-3" data-answer="C">
+    <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">C</span>
+    <span id="preview-c" class="text-[14px]">Option C</span>
+  </div>
+
+  <div class="preview-option flex items-center gap-3" data-answer="D">
+    <span class="w-7 h-7 rounded-full border border-[#D9D9D9] flex items-center justify-center text-[14px]">D</span>
+    <span id="preview-d" class="text-[14px]">Option D</span>
+  </div>
+</div>
+
+            <!-- PREVIEW EXPLANATION -->
+            <div class="mt-6 border border-[#D9D9D9] rounded-[7px] p-4">
+              <h3 class="text-[14px] font-semibold text-[#085848]">Explanation</h3>
+
+              <p id="preview-explanation" class="mt-4 text-[14px] leading-5 text-[#78909C]">
+                Explain why the selected answer is correct...
+              </p>
+            </div>
+
+            <!-- PREVIEW DETAILS -->
+            <div class="mt-8 space-y-5">
+
+              <div class="flex items-center gap-3">
+                <img src="/Images/category.png" alt="" class="w-8 h-8">
+                <div>
+                  <p class="text-[12px]">Category</p>
+                  <p id="preview-category" class="mt-1 text-[16px] text-black">JAMB</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <img src="/Images/subjectt.png" alt="" class="w-8 h-8">
+                <div>
+                  <p class="text-[12px]">Subject</p>
+                  <p id="preview-subject" class="mt-1 text-[16px] text-black">Mathematics</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <img src="/Images/topicc.png" alt="" class="w-8 h-8">
+                <div>
+                  <p class="text-[12px]">Topics</p>
+                  <p id="preview-topic" class="mt-1 text-[16px] text-black">Calculus and Differentiation</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <img src="/Images/multiple.png" alt="" class="w-8 h-8">
+                <div>
+                  <p class="text-[12px]">Question Type</p>
+                  <p id="preview-type" class="mt-1 text-[16px] text-black">Multiple Choice</p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- MOBILE/TABLET BUTTONS -->
+            <div
+              class="mt-7 flex lg:hidden flex-col sm:flex-row items-stretch sm:items-center sm:justify-between gap-3">
+              <button id="save-draft-btn-mobile" type="button"
+                class="p-3 border border-[#D9D9D9] rounded-[6px] bg-white text-[14px]">
+                Save as Draft
+              </button>
+
+              <button id="publish-question-btn-mobile" type="submit" form="question-form"
+                class="p-3 bg-[#085848] text-white rounded-[6px] text-[14px]">
+                Publish Question
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+
 </body>
+
 </html>
