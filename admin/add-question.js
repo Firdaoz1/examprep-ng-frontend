@@ -1,3 +1,6 @@
+// const API_BASE_URL =
+  // "https://exam-prep-backend-git-staging-bidex327s-projects.vercel.app";
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("question-form");
 
@@ -19,6 +22,168 @@ document.addEventListener("DOMContentLoaded", () => {
     C: document.getElementById("answer-c"),
     D: document.getElementById("answer-d"),
   };
+
+  // Load actual database IDs for exams, subjects, and topics.
+  let availableSubjects = [];
+  let availableTopics = [];
+
+  async function loadSubjects() {
+  try {
+    const token = sessionStorage.getItem("adminToken");
+
+    if (!token) {
+      throw new Error("Admin token not found. Please log in again.");
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/subjects`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.success === false) {
+      throw new Error(
+        result.message || `Failed to load subjects (${response.status}).`
+      );
+    }
+
+    availableSubjects = Array.isArray(result.data)
+      ? result.data
+      : result.data?.subjects || [];
+
+    console.log("Subjects loaded:", availableSubjects);
+  } catch (error) {
+    console.error("Loading subjects failed:", error);
+    showMessage(error.message, true);
+  }
+}
+
+  async function loadTopics(subjectId) {
+  try {
+    const token = sessionStorage.getItem("adminToken");
+
+    if (!token) {
+      throw new Error("Admin token not found. Please log in again.");
+    }
+
+    const response = await fetch(
+      `${API_BASE_URL}/api/topics?subjectId=${encodeURIComponent(subjectId)}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || result.success === false) {
+      throw new Error(
+        result.message || `Failed to load topics (${response.status}).`
+      );
+    }
+
+    availableTopics = Array.isArray(result.data)
+      ? result.data
+      : result.data?.topics || [];
+
+    console.log("Topics loaded:", availableTopics);
+  } catch (error) {
+    availableTopics = [];
+    console.error("Loading topics failed:", error);
+    showMessage(error.message, true);
+  }
+}
+function getRecordId(record, ...keys) {
+  for (const key of keys) {
+    const value = record?.[key];
+
+    if (typeof value === "string" && value.trim()) {
+      return value.trim();
+    }
+
+    if (value && typeof value === "object" && value._id) {
+      return String(value._id);
+    }
+  }
+
+  return "";
+}
+
+async function resolveSelectedSubject() {
+  const subjectName = fields.subject.value.trim().toLowerCase();
+
+  const subject = availableSubjects.find(
+    item => item.name.trim().toLowerCase() === subjectName
+  );
+
+  if (!subject) {
+    console.error("Selected subject not found:", fields.subject.value);
+    delete fields.subject.dataset.id;
+    delete fields.category.dataset.id;
+    showMessage("Please select a valid subject.", "error");
+    return;
+  }
+
+  // Assign the actual IDs returned by the backend
+  fields.subject.dataset.id = subject.subjectId;
+  fields.category.dataset.id = subject.examId;
+
+  console.log("Resolved exam ID:", fields.category.dataset.id);
+  console.log("Resolved subject ID:", fields.subject.dataset.id);
+
+  await loadTopics(subject.subjectId);
+  resolveSelectedTopic();
+}
+
+function resolveSelectedTopic() {
+  const topicName = fields.topic.value.trim().toLowerCase();
+
+  const topic = availableTopics.find((item) => {
+    const name = item.name || item.topicName || item.title || "";
+    const recordSubjectId = getRecordId(item, "subjectId");
+
+    return (
+      name.trim().toLowerCase() === topicName &&
+      recordSubjectId === fields.subject.dataset.id
+    );
+  });
+
+  if (!topic) {
+    delete fields.topic.dataset.id;
+
+    console.error("Topic not found. Available records:", availableTopics);
+    showMessage("Topic not found in the backend topic list.", true);
+    return;
+  }
+
+  const topicId = getRecordId(topic, "topicId", "_id", "id");
+
+  if (!topicId) {
+    console.error("Topic record is missing its ID:", topic);
+    showMessage("The topic record has no recognizable database ID.", true);
+    return;
+  }
+
+  fields.topic.dataset.id = topicId;
+  console.log("Resolved topic ID:", topicId);
+}
+
+  fields.subject.addEventListener("change", resolveSelectedSubject);
+  fields.subject.addEventListener("blur", resolveSelectedSubject);
+  fields.topic.addEventListener("change", resolveSelectedTopic);
+  fields.topic.addEventListener("blur", resolveSelectedTopic);
+
+  loadSubjects();
+
+const SAVED_ID_KEY = "examPrepSavedQuestionId";
+
+let savedQuestionId = sessionStorage.getItem(SAVED_ID_KEY);
+let isSaving = false;
 
   const neutralCardClasses = [
     "bg-white",
@@ -72,54 +237,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function selectCorrectAnswer(letter = "") {
-  const validLetter = ["A", "B", "C", "D"].includes(letter)
-    ? letter
-    : "";
+  function selectCorrectAnswer(letter) {
+    if (!options[letter]) return;
 
-  fields.correctAnswer.value = validLetter;
+    fields.correctAnswer.value = letter;
 
-  document.querySelectorAll(".answer-row").forEach((row) => {
-    const input = row.querySelector('input[type="text"]');
-    const radio = row.querySelector(".correct-answer-btn");
-    const letterLabel = row.querySelector("label");
-    const card = row.querySelector(".answer-box");
+    document.querySelectorAll(".answer-row").forEach((row) => {
+      const input = row.querySelector('input[type="text"]');
+      const radio = row.querySelector(".correct-answer-btn");
+      const letterLabel = row.querySelector("label");
+      const card = row.querySelector(".answer-box");
 
-    if (!input || !radio || !letterLabel || !card) return;
+      if (!input || !radio || !letterLabel || !card) return;
 
-    const selected = input.id === options[validLetter]?.id;
+      const selected = input.id === options[letter].id;
 
-    card.classList.remove(...selectedCardClasses);
-    card.classList.add(...neutralCardClasses);
+      // Reset the answer card first.
+      card.classList.remove(...selectedCardClasses);
+      card.classList.add(...neutralCardClasses);
 
-    letterLabel.classList.remove(...selectedLetterClasses);
-    letterLabel.classList.add(...neutralLetterClasses);
+      // Reset the A, B, C or D circle.
+      letterLabel.classList.remove(
+        ...selectedLetterClasses,
+        ...neutralLetterClasses
+      );
 
-    input.classList.remove(...selectedInputClasses);
-    input.classList.add(...neutralInputClasses);
+      // Reset the answer text.
+      input.classList.remove(
+        ...selectedInputClasses,
+        ...neutralInputClasses
+      );
 
-    radio.classList.remove(...selectedRadioClasses, "selected");
-    radio.classList.add(...neutralRadioClasses);
-    radio.setAttribute("aria-pressed", String(selected));
+      // Reset the radio button.
+      radio.classList.remove(
+        ...selectedRadioClasses,
+        ...neutralRadioClasses
+      );
 
-    if (selected) {
-      card.classList.remove(...neutralCardClasses);
-      card.classList.add(...selectedCardClasses);
+      radio.classList.remove("selected");
 
-      letterLabel.classList.remove(...neutralLetterClasses);
-      letterLabel.classList.add(...selectedLetterClasses);
+      if (selected) {
+        // Style only the selected answer.
+        card.classList.remove(...neutralCardClasses);
+        card.classList.add(...selectedCardClasses);
 
-      input.classList.remove(...neutralInputClasses);
-      input.classList.add(...selectedInputClasses);
+        letterLabel.classList.remove(...neutralLetterClasses);
+        letterLabel.classList.add(...selectedLetterClasses);
 
-      radio.classList.remove(...neutralRadioClasses);
-      radio.classList.add(...selectedRadioClasses, "selected");
-    }
-  });
+        input.classList.remove(...neutralInputClasses);
+        input.classList.add(...selectedInputClasses);
 
-  updateCorrectAnswerDisplay();
-  updatePreview();
-}
+        radio.classList.remove(...neutralRadioClasses);
+        radio.classList.add(...selectedRadioClasses);
+        radio.classList.add("selected");
+      }
+
+      radio.setAttribute("aria-pressed", String(selected));
+    });
+
+    updateCorrectAnswerDisplay();
+    updatePreview();
+  }
 
   function updateCorrectAnswerDisplay() {
     const letter = fields.correctAnswer.value;
@@ -248,22 +426,180 @@ document.addEventListener("DOMContentLoaded", () => {
     return true;
   }
 
-  function saveDraft() {
-    const data = collectQuestionData("draft");
+  function getAdminToken() {
+  return sessionStorage.getItem("adminToken");
+}
 
-    try {
-      localStorage.setItem(
-        "examPrepQuestionDraft",
-        JSON.stringify(data)
-      );
+function getBackendId(field) {
+  return (
+    field?.dataset.id ||
+    field?.dataset.examId ||
+    field?.dataset.subjectId ||
+    field?.dataset.topicId ||
+    ""
+  ).trim();
+}
 
-      showMessage(
-        "Draft saved in your browser. It has not been sent to the backend."
-      );
-    } catch (error) {
-      showMessage("Unable to save the draft.", true);
-    }
+function collectApiQuestionData() {
+  return {
+    examId: fields.category.dataset.id || "",
+    subjectId: fields.subject.dataset.id || "",
+    topicId: fields.topic.dataset.id || "",
+    questionType: fields.type.value.trim(),
+    questionText: fields.question.value.trim(),
+    options: {
+      A: options.A.value.trim(),
+      B: options.B.value.trim(),
+      C: options.C.value.trim(),
+      D: options.D.value.trim()
+    },
+    correctAnswer: fields.correctAnswer.value,
+    explanation: fields.explanation.value.trim()
+  };
+}
+
+async function sendQuestionRequest(url, method, body) {
+  const token = getAdminToken();
+
+  if (!token) {
+    throw new Error("Admin login required. Please log in again.");
   }
+
+  const response = await fetch(`${API_BASE_URL}${url}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  const text = await response.text();
+  let result = {};
+
+  try {
+    result = text ? JSON.parse(text) : {};
+  } catch {
+    result = { message: text };
+  }
+
+  if (!response.ok || result.success === false) {
+    throw new Error(
+      result.message || `Request failed (${response.status}).`
+    );
+  }
+
+  return result;
+}
+
+async function createQuestionOnBackend() {
+  const data = collectApiQuestionData();
+
+  console.log("IDs before creating question:", {
+  examId: data.examId,
+  subjectId: data.subjectId,
+  topicId: data.topicId
+});
+
+  if (!data.examId || !data.subjectId || !data.topicId) {
+    throw new Error(
+      "Exam ID, subject ID or topic ID is missing. The form currently has no confirmed database ID for one or more fields."
+    );
+  }
+
+  const result = await sendQuestionRequest(
+    "/api/questions",
+    "POST",
+    {
+      ...data,
+      status: "draft",
+    }
+  );
+
+  const question =
+    result.data?.question ||
+    result.data ||
+    result.question ||
+    result;
+
+  const id =
+    question._id ||
+    question.id ||
+    question.questionId;
+
+  if (!id) {
+    console.error("Create question response:", result);
+    throw new Error(
+      "The question response did not contain a recognizable question ID. Check the browser console."
+    );
+  }
+
+  savedQuestionId = String(id);
+  sessionStorage.setItem(SAVED_ID_KEY, savedQuestionId);
+
+  return savedQuestionId;
+}
+
+  async function saveDraft() {
+  if (isSaving) return;
+  if (!validateForm()) return;
+
+  if (savedQuestionId) {
+    showMessage(
+      "This question already has a saved ID. You can publish it."
+    );
+    return;
+  }
+
+  isSaving = true;
+
+  try {
+    await createQuestionOnBackend();
+
+    // Keep a local copy as a backup.
+    localStorage.setItem(
+      "examPrepQuestionDraft",
+      JSON.stringify(collectQuestionData("draft"))
+    );
+
+    showMessage("Question saved as a draft successfully.");
+  } catch (error) {
+    console.error("Save draft failed:", error);
+    showMessage(error.message, true);
+  } finally {
+    isSaving = false;
+  }
+}
+
+async function publishQuestion() {
+  if (isSaving) return;
+  if (!validateForm()) return;
+
+  isSaving = true;
+
+  try {
+    // Create the draft first if it hasn't been saved yet.
+    const questionId =
+      savedQuestionId || await createQuestionOnBackend();
+
+    await sendQuestionRequest(
+      `/api/admin/questions/${encodeURIComponent(questionId)}/status`,
+      "PATCH",
+      { status: "published" }
+    );
+
+    sessionStorage.removeItem(SAVED_ID_KEY);
+    localStorage.removeItem("examPrepQuestionDraft");
+    savedQuestionId = null;
+
+    showMessage("Question published successfully.");
+  } catch (error) {
+    console.error("Publish question failed:", error);
+    showMessage(error.message, true);
+  } finally {
+    isSaving = false;
+  }
+}
 
   function restoreDraft() {
     try {
@@ -295,9 +631,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Clicking an answer selects it.
  document.querySelectorAll(".correct-answer-btn").forEach((button) => {
-  button.addEventListener("click", (event) => {
+  button.addEventListener("click", function (event) {
     event.preventDefault();
-    selectCorrectAnswer(button.dataset.answer);
+
+    const answer = this.getAttribute("data-answer");
+
+    if (!answer) return;
+
+    fields.correctAnswer.value = answer;
+
+    selectCorrectAnswer(answer);
   });
 });
 
@@ -325,32 +668,25 @@ document.addEventListener("DOMContentLoaded", () => {
     ?.addEventListener("click", saveDraft);
 
   // Validate the form. Actual API publishing is not connected yet.
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  // Publish the question when the form is submitted.
+// Publish the question when the form is submitted.
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    if (!validateForm()) return;
+  if (!validateForm()) return;
 
-    console.log(
-      "Question ready for backend integration:",
-      collectQuestionData("published")
-    );
+  await publishQuestion();
+});
 
-    showMessage(
-      "All fields are valid. Publishing still needs backend integration."
-    );
-  });
 
-// Restore a saved draft once, if one exists.
-restoreDraft();
+  // No answer should be selected by default.
+  restoreDraft();
 
-// Restore its selected answer, or select nothing.
-const savedAnswer = fields.correctAnswer.value;
+if (!["A", "B", "C", "D"].includes(fields.correctAnswer.value)) {
+  fields.correctAnswer.value = "";
+}
 
-selectCorrectAnswer(
-  ["A", "B", "C", "D"].includes(savedAnswer)
-    ? savedAnswer
-    : ""
-);
-
+updateCorrectAnswerDisplay();
 updatePreview();
+selectCorrectAnswer(fields.correctAnswer.value);
 });
